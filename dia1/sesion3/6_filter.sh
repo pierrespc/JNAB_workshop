@@ -1,8 +1,11 @@
 #!/bin/bash
 #SBATCH -p short
-#SBATCH -o $(pwd)/Logs/filter.o
-#SBATCH -e $(pwd)/Logs/filter.e
+#SBATCH -o Logs/filter.o
+#SBATCH -e Logs/filter.e
 #SBATCH -J filter
+
+shopt -s expand_aliases
+source ~/.bash_profile
 
 base=${HOME}/JNAB/dia1/sesion3/PrepareData/Outputs/ModernAncient
 MaxMissingRatePerInd=0.1

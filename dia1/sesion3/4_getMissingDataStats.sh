@@ -1,8 +1,11 @@
 #!/bin/bash
 #SBATCH -p short
-#SBATCH -o $(pwd)/Logs/missing.o
-#SBATCH -e $(pwd)/Logs/missing.e
+#SBATCH -o Logs/missing.o
+#SBATCH -e Logs/missing.e
 #SBATCH -J merge
+
+shopt -s expand_aliases
+source ~/.bash_profile
 
 base=${HOME}/JNAB/dia1/sesion3/PrepareData/Outputs/ModernAncient_withOutgroups
 

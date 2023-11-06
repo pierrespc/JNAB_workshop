@@ -1,9 +1,11 @@
 #!/bin.bash
 #SBATCH -p short
-#SBATCH -o /home/pluisi/JNAB/dia1/sesion3/Logs/makeFile_forFstats.o
-#SBATCH -e /home/pluisi/JNAB/dia1/sesion3/Logs/makeFile_forFstats.e
+#SBATCH -o Logs/makeFile_forFstats.o
+#SBATCH -e Logs/makeFile_forFstats.e
 #SBATCH -J forFstat
 
+shopt -s expand_aliases
+source ~/.bash_profile
 
 prefin=${HOME}/JNAB/dia1/sesion3//Outputs/ModernAncient_withOutgroups
 prefout=${HOME}//JNAB/dia1/sesion3//Outputs/ForFstats/

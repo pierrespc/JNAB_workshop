@@ -1,7 +1,7 @@
 #!/bin/bash
 #SBATCH -p short
-#SBATCH -o /home/pluisi/JNAB/dia1/sesion3/Logs/mergeOutgroups.o
-#SBATCH -e /home/pluisi/JNAB/dia1/sesion3/Logs/mergeOutgroups.e
+#SBATCH -o Logs/mergeOutgroups.o
+#SBATCH -e Logs/mergeOutgroups.e
 #SBATCH -J mergeOutgroups
 
 shopt -s expand_aliases
