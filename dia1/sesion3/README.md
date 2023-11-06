@@ -66,7 +66,7 @@ Luego vienen las instrucciones:
 source ~/.bash_profile ` son algunos trucos para poder correr los programas (es propio de como organizamos la instalación de los programas en el cluster y no lo vamos a explicar).
 - `base1=${HOME}/JNAB/dia1/sesion3/StartingData/AADR/AADR_selected`
 - `base2=${HOME}/JNAB/dia1/sesion3/StartingData/AADR/AADR_selected`
-- `format=PACKEDBED` es para asignar el formato de salida (plink)
+- `format=EIGENSTRAT` es para asignar el formato de salida (plink)
 - `outpref=...` es para asignar los nombres de los archivos de entrada y de salida, mientras que `format=...` es para asignar el formato.
 - `echo ... ` es para generar el archivo `Outputs/ModernAncient.params `
 - `mergit -p ... ` es para correr mergeit con este fichero de parametros.
@@ -77,18 +77,12 @@ Mirar el estatus de la cola con `squeue -u <user> ` (su user es `cursojnab<N>`).
 
 Funcionó? Mirar los Logs (`Logs/merge.e` y `Logs/merge.o`) y verificar si se generaron los archivos esperados en `Outputs/`
 
-Los archivos estan al formato "binary" de plink y se constituyen de 3 archivos
-- `<pref>.bim`: mapa de las variantes con 6 columnas chr | snpID | posicion (en cM) | posicion (en bp) | Alelo1 | Alelo2 (ver [https://www.cog-genomics.org/plink/1.9/formats#bim](https://www.cog-genomics.org/plink/1.9/formats#bim)
-- `<pref>.fam`: informacion sobre los individuos FamilyID | IndID |  fatherID |  motherID | Sex | Phenotype (ver [https://www.cog-genomics.org/plink/1.9/formats#fam](https://www.cog-genomics.org/plink/1.9/formats#fam))
-- `<pref>.bed`: matriz de genotipos (binario y no se puede leer directamente; ver [https://www.cog-genomics.org/plink/1.9/formats#bed](https://www.cog-genomics.org/plink/1.9/formats#bed).
-
- 
 Vemos que no le gusta que los alelos no sean consistentes entre los dos archivos. Eso se debe a que puede ser una posición tri-allelica pero eigensoft (y plink) solo reconocen posiciones bi-allelica.
 Pero además cuando trabajamos con datos de genotipificación, existe el problema de la cadena: un A leido en la cadena + corresponde a un T en la cadena -. Lo mismo para C/G. Llamamos los genotipos A/T y C/G "ambiguos". Cuando trabajamos con datos de secuenciación, en general todo se lee con la cadena + y no hay ambiguidad, pero con datos de genotipificación, es más complicado (depende de la poisición y de la tecnología), entonces es recomendable sacar las posiciones con alelos A/T y C/G. Es lo que hace eigensoft.
 
-Con `wc -l Outputs/ModernAncient.bim ` se puede consultar cuantas posiciones quedaron.
-Con ` awk '{print $5,$6}' Outputs/ModernAncient.bim | sort | uniq ` se puede ver el conteo de las combinaciones Alelo1/Alelo2 de las variantes que quedan, y verificar que ya no hay genotipos ambiguos.
-Con ` wc -l  Outputs/ModernAncient.fam `  podemos ver el número de individuos (corroborar que corresponde con los inputs).
+Con `wc -l Outputs/ModernAncient.snp.txt ` se puede consultar cuantas posiciones quedaron.
+Con ` awk '{print $5,$6}' Outputs/ModernAncient.snp.txt | sort | uniq ` se puede ver el conteo de las combinaciones Alelo1/Alelo2 de las variantes que quedan, y verificar que ya no hay genotipos ambiguos.
+Con ` wc -l  Outputs/ModernAncient.ind.txt `  podemos ver el número de individuos (corroborar que corresponde con los inputs).
 
 
 ### 2.2. Modern + AADR + Outgroups
@@ -96,7 +90,15 @@ El script `3_merge_Outgoups.sh ` permite fusionar los datos que acabamos de gene
 Mandarlo a correr con `sbatch 3_merge_Outgoups.sh `
 Es muy parecido al script previo. Mirarlo para tratar de entender los ficheros de entrada y de salida.
 
-- Cuantas posiciones quedan?
+Los archivos estan al formato "binary" de plink y se constituyen de 3 archivos
+- `<pref>.bim`: mapa de las variantes con 6 columnas chr | snpID | posicion (en cM) | posicion (en bp) | Alelo1 | Alelo2 (ver [https://www.cog-genomics.org/plink/1.9/formats#bim](https://www.cog-genomics.org/plink/1.9/formats#bim)
+- `<pref>.fam`: informacion sobre los individuos FamilyID | IndID |  fatherID |  motherID | Sex | Phenotype (ver [https://www.cog-genomics.org/plink/1.9/formats#fam](https://www.cog-genomics.org/plink/1.9/formats#fam))
+- `<pref>.bed`: matriz de genotipos (binario y no se puede leer directamente; ver [https://www.cog-genomics.org/plink/1.9/formats#bed](https://www.cog-genomics.org/plink/1.9/formats#bed)
+
+Cuantas posiciones quedan?
+
+Con more Outputs/ModernAncient.fam , vemos que la información poblacional se perdió. No nos estresmos, lo vasmos a arreglaremos.
+
 - Mirar el numero de individuos por poblacion: ` awk '{print $1}' /Outputs/ModernAncient_withOutgroups | sort | uniq -c `
 
 ## 3. Datos faltantes
@@ -107,7 +109,7 @@ Vamos a correr `sbatch 4_getMissingDataStats.sh  ` para generar:
 - `Outputs/ModernAncient_withOutgroups.imiss`: valores faltantes por individuo
 - `Outputs/ModernAncient_withOutgroups.lmiss`: valores faltantes por snp
  
-
+Corroborar que haya funcionado bien (mirar los Logs y si existen los Outputs esperados). Verificar que el numero de individuos es el esperado dados los ficheros de entrada. Cuantas variantes tiene el conjunto de datos generado?
 
  
 
