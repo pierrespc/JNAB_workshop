@@ -23,4 +23,8 @@ familynames:     YES" > $prefout.param
 
 convertf -p $prefout.param 
 
+###fix ind ID
+cut -d':' -f2 $prefout.ind.txt > tmp
+mv tmp $prefout.ind.txt
+
 
