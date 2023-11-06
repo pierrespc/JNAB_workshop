@@ -35,7 +35,7 @@ o enviándolo a un nodo de computación:
   `sbatch -J <prefix> 1_fastqc.sbatch`
 
 ## 2. AdapterRemoval
-En aDNA, uno de los programas más populares para filtrar archivos fastq es AdapterRemoval (https://adapterremoval.readthedocs.io/en/stable/manpage.html#options). Este programa permite entre otras cosas: remover adaptadores, cortar Ns, remover lecturas de mala calidad y por tamaño (usualmente menores a 30pb).
+En aDNA, uno de los programas más populares para filtrar archivos fastq es AdapterRemoval (https://adapterremoval.readthedocs.io/en/stable/manpage.html#options). Este programa permite entre otras cosas: remover adaptadores, cortar Ns, y remover lecturas por calidad (>30 usualmente) y tamaño (usualmente menores a 30pb).
 
 El programa se puede correr directamente así:
 
@@ -63,7 +63,7 @@ Ejecutar el script de la siguiente manera
 Archivos bam
 - ¿Cuántos archivos bam hay por fastq?
 - Los archivos bam son la versión binaria de sam. Explorar las características de estos archivos, secciones y pasos en el header utilizando:
-  `samtools view -h <prefix>.bam | less`
+  `samtools view -H <prefix>.bam`
 - ¿Qué numero de lecturas fueron alineadas al genoma de referencia? (ejemplo: `samtools view -c <prefix>.bam`)
 - ¿Qué número de lecturas únicas fueron alineadas al genoma de referencia?
 - ¿Cuál es el porcentaje de ADN endógeno?
@@ -73,7 +73,7 @@ Archivos bam
 
 
 ## 4. Patrones de daño
-Los patrones de daño pueden ser evaluados con el programa mapDamage. Ejecutar este programa de la siguiente manera:
+Los patrones de daño pueden ser evaluados con el programa mapDamage. Este programa se puede ejecutar de la siguiente manera:
 
 `mapdamage  --folder=<prefix>_mapDamage -i <prefix>.rmdup.uniq.rg.realn.md.bam -r <referencia.fa>`
 
@@ -84,7 +84,7 @@ Por cuestiones de tiempo y espacio los archivos fastq y alineamiento estuvieron 
 
 `bcftools mpileup -f rCRS.fa -d 2000 -m 3 -EQ 20 -q 30 <prefix>.rmdup.uniq.rg.realn.md.bam | bcftools call -m --ploidy 1 -Ov > <prefix>.MT.vcf`
 
-- Crear un archivo sbatch para ejecutar comando
+- Crear un archivo sbatch para ejecutar el comando anterior. 
 
 - ¿Qué filtros fueron utilizados para el llamado de variantes? Revisar manual de bcftools en https://samtools.github.io/bcftools/bcftools.html
 
