@@ -19,8 +19,8 @@ En la terminal. Ubicar se en ${HOME}/JNAB/dia1/sesion3/:
 ` cd ${HOME}/JNAB/dia1/sesion3/ `
 
 Los datos de genotipos en el formato eigensoft se conforman de 3 archivos (ver : [https://github.com/argriffing/eigensoft/blob/master/CONVERTF/README](https://github.com/argriffing/eigensoft/blob/master/CONVERTF/README)) 
-- un .snp.txt: el mapa de las variantes con 6 columnas: snpID | chr | position (in cM) | position (in bp) | Allele1 | Allele2
-- un .ind.txt: informacion de los individuos con 3 columnas indID | Sex | Population
-- un .geno.txt: la matrix de genotipos (1 linea por individuo, una columna por variante; los individuos y las variantes estan en el mismo orden que en el .ind.txt y el .snp.txt). El genotipo esta codificado con el numero de copias del Alelo1 (0/1/2 y 9 para valor faltante).
+- `<pref>.snp.txt`: el mapa de las variantes con 6 columnas: snpID | chr | position (in cM) | position (in bp) | Allele1 | Allele2
+- `<pref>.ind.txt`: informacion de los individuos con 3 columnas indID | Sex | Population
+- `<pref>.geno.txt`: la matrix de genotipos (1 linea por individuo, una columna por variante; los individuos y las variantes estan en el mismo orden que en el .ind.txt y el .snp.txt). El genotipo esta codificado con el numero de copias del Alelo1 (0/1/2 y 9 para valor faltante).
 
 
