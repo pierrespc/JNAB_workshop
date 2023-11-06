@@ -32,3 +32,10 @@ plink --bfile ${base}.MIND${MaxMissingRatePerInd}.GENO${MaxMissingRatePerSnp}.MA
 plink --bfile ${base}.MIND${MaxMissingRatePerInd}.GENO${MaxMissingRatePerSnp}.MAF${MinorAlleleFrequency} --extract ${base}.MIND${MaxMissingRatePerInd}.GENO${MaxMissingRatePerSnp}.MAF${MinorAlleleFrequency}.pruning.prune.in --make-bed --out ${base}.MIND${MaxMissingRatePerInd}.GENO${MaxMissingRatePerSnp}.MAF${MinorAlleleFrequency}.pruned
 
 
+###we fix the loss of population in 6th column for all fam files generated
+a=$(ls ${HOME}/JNAB/dia1/sesion3/Outputs/ModernAncient_withOutgroups.MIND*fam)
+for i in $a
+do
+	awk '{$6=$1;print $1,$2,$3,$4,$5,$6}' $i > tmp; mv tmp $i
+done
+

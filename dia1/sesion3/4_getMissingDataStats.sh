@@ -2,7 +2,7 @@
 #SBATCH -p short
 #SBATCH -o Logs/missing.o
 #SBATCH -e Logs/missing.e
-#SBATCH -J merge
+#SBATCH -J missing
 
 shopt -s expand_aliases
 source ~/.bash_profile

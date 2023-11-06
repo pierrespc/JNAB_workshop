@@ -123,12 +123,12 @@ Vemos que la tasa de valor faltante para los individuos modernos enmascarados es
 En plink existe la opcion [`--keep ` para filtrar individuos](https://www.cog-genomics.org/plink/1.9/filter#indiv). 
 Para usarla, hay que creo un archivo que contiene por los menos las columnas FamilyID | IndID. Este se puede generar facilmente con comandos de bash desde el fichero fam de partida, si conocemos bien los datos. Mirar en el script  `6_getMissingDataStats_perDataSet.sh` como se generan los dos archivos `ModernAncient_withOutgroups_onlyModernEnmascarados.KEEP` y `ModernAncient_withOutgroups_onlyAncient.KEEP` a traves de la funcion `grep`.
 Correr `sbatch 6_getMissingDataStats_perDataSet.sh `. Miremos las distribuciones de los valores faltantes en cada sub-conjunto:
-- Primero los datos modernos:` Rscript ModernAncient_withOutgroups_onlyModernEnmascarados`
-- Luego los datos antiguos:` Rscript ModernAncient_withOutgroups_onlyAncient`
+- Primero los datos modernos:` Rscript RScripts/distributionMissing_divided.R  Outputs/ModernAncient_withOutgroups_onlyModernEnmascarados`
+- Luego los datos antiguos:` Rscript RScripts/distributionMissing_divided.R  Outputs/ModernAncient_withOutgroups_onlyAncient`
 (Estos se pueden correr en un nodo de computacion con `sbatch  7_runRscriptForMissingDistributions_divided.sh`) 
 Copiar en la computadora estos archivos con comando scp:
-- scp <user>@mulatona.ccad.unc.edu.ar:/home/<user>/JNAB/dia1/sesion3/Outputs/ModernAncient_withOutgroups_onlyModernEnmascarados_missing.pdf ~/ 
-- scp <user>@mulatona.ccad.unc.edu.ar:/home/<user>/JNAB/dia1/sesion3/Outputs/ModernAncient_withOutgroups_onlyAncient_missing.pdf ~/
+- `scp <user>@mulatona.ccad.unc.edu.ar:/home/<user>/JNAB/dia1/sesion3/Outputs/ModernAncient_withOutgroups_onlyModernEnmascarados_missing.pdf ~/` 
+- `scp <user>@mulatona.ccad.unc.edu.ar:/home/<user>/JNAB/dia1/sesion3/Outputs/ModernAncient_withOutgroups_onlyAncient_missing.pdf ~/`
 
 Vemos que para muchos SNPs, la tasa de faltante en los datos modernos enmascarados es de 1: es decir que las posiciones no estan representadas en estos datos. Es lo que hace eigensoft, no filtra por posiciones que se solapan entre dos conjuntos de datos, pero atribuye genotipo faltante para todos los individuos de un conjunto para las posiciones no presentes en este pero si en el otro conjunto.
 Vemos que para los datos antiguos, no hay este problema. Para evitar de usar posiciones solo en un conjunto de datos (solo para antiguos), vamos a aplicar primero un filtro sobre valores faltantes por posicion, adaptando el umbral.

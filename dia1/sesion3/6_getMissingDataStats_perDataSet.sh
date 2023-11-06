@@ -1,8 +1,8 @@
 #!/bin/bash
 #SBATCH -p short
-#SBATCH -o Logs/missing.o
-#SBATCH -e Logs/missing.e
-#SBATCH -J merge
+#SBATCH -o Logs/missingDivided.o
+#SBATCH -e Logs/missingDivided.e
+#SBATCH -J missingDivided
 
 shopt -s expand_aliases
 source ~/.bash_profile
