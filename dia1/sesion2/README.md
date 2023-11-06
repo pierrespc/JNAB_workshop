@@ -81,12 +81,7 @@ Los patrones de daño pueden ser evaluados con el programa mapDamage. Ejecutar e
 ## 5. Archivo de variantes (VCF): mtDNA
 Por cuestiones de tiempo y espacio los archivos fastq y alineamiento estuvieron limitados a mtDNA. Esto facilitará la obtención de un archivo de variantes (VCF), el cual se puede generar de la siguiente manera:  
 
-`bcftools mpileup \
--f rCRS.fa \
--d 2000 \
--m 3 \
--EQ 20 \
--q 30 <prefix>.rmdup.uniq.rg.realn.md.bam | bcftools call -m --ploidy 1 -Ov > <prefix>.MT.vcf`
+`bcftools mpileup -f rCRS.fa -d 2000 -m 3 -EQ 20 -q 30 <prefix>.rmdup.uniq.rg.realn.md.bam | bcftools call -m --ploidy 1 -Ov > <prefix>.MT.vcf`
 
 - Crear un archivo sbatch para ejecutar comando
 
@@ -95,3 +90,6 @@ Por cuestiones de tiempo y espacio los archivos fastq y alineamiento estuvieron 
 - El archivo de variantes mitocondriales puede ser cargado en la versión online de haplogrep (https://haplogrep.i-med.ac.at/) para asignar linaje. ¿Cuales son los linajes mitocondriales de los individuos analizados?
 
 - ¿Cómo extraer información sólo de mtDNA de un alineamiento genómico? (tip: samtools)
+
+## Bonus
+Analizar el archivo fastq en: /home/shared/cursojnab/dia1/sesion2/fastq/bonus/
