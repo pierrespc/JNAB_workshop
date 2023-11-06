@@ -1,0 +1,25 @@
+folderImg=/home/pluisi/JNAB/Images
+
+
+alias fastqc='singularity exec ${folderImg}/nfcore-eager-2.4.2.img fastqc'
+alias AdapterRemoval='singularity exec ${folderImg}/nfcore-eager-2.4.2.img AdapterRemoval'
+alias bwa='singularity exec ${folderImg}/nfcore-eager-2.4.2.img bwa'
+alias samtools='singularity exec ${folderImg}/nfcore-eager-2.4.2.img samtools'
+alias picard='singularity exec ${folderImg}/nfcore-eager-2.4.2.img picard'
+alias gatk='singularity exec ${folderImg}/nfcore-eager-2.4.2.img gatk'
+alias mapDamage='singularity exec ${folderImg}/nfcore-eager-2.4.2.img mapDamage'
+alias bcftools='singularity exec ${folderImg}/nfcore-eager-2.4.2.img bcftools'
+alias pileUpCaller='singularity exec ${folderImg}/nfcore-eager-2.4.2.img pileupCaller'
+
+alias convertf='singularity exec ${folderImg}/biocontainers-eigensoft-v7.2.1dfsg-1-deb_cv1.img convertf '
+alias mergeit='singularity exec ${folderImg}/biocontainers-eigensoft-v7.2.1dfsg-1-deb_cv1.img mergeit '
+alias smartpca='singularity exec ${folderImg}/biocontainers-eigensoft-v7.2.1dfsg-1-deb_cv1.img smartpca '
+
+alias admixture='singularity exec ${folderImg}/evolbioinfo-admixture-v1.3.0.img admixture '
+
+alias vcftools='singularity exec ${folderImg}/evolbioinfo-vcftools-v1.0.16.img vcftools '
+
+alias qp3Pop='singularity exec ${folderImg}/ghcr.io-autamus_admixtools_7.0.1.sif qp3Pop'
+alias qpDstat='singularity exec ${folderImg}/ghcr.io-autamus_admixtools_7.0.1.sif qpDstat'
+
+

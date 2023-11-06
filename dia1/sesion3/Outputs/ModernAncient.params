@@ -1,0 +1,12 @@
+
+geno1: /home/pluisi/JNAB/dia1/sesion3/StartingData/AADR/AADR_selected.geno.txt
+ind1: /home/pluisi/JNAB/dia1/sesion3/StartingData/AADR/AADR_selected.ind.txt
+snp1: /home/pluisi/JNAB/dia1/sesion3/StartingData/AADR/AADR_selected.snp.txt
+geno2: /home/pluisi/JNAB/dia1/sesion3/StartingData/MaskedModernDat/Luisi2020_delaFuente2018_GW.TH0.9.Nat.Phased.Mind1_Ditypes.eigen.geno.txt
+ind2: /home/pluisi/JNAB/dia1/sesion3/StartingData/MaskedModernDat/Luisi2020_delaFuente2018_GW.TH0.9.Nat.Phased.Mind1_Ditypes.eigen.ind.txt
+snp2: /home/pluisi/JNAB/dia1/sesion3/StartingData/MaskedModernDat/Luisi2020_delaFuente2018_GW.TH0.9.Nat.Phased.Mind1_Ditypes.eigen.snp.txt 
+genooutfilename: /home/pluisi/JNAB/dia1/sesion3//Outputs/ModernAncient.bed
+snpoutfilename: /home/pluisi/JNAB/dia1/sesion3//Outputs/ModernAncient.bim
+indoutfilename: /home/pluisi/JNAB/dia1/sesion3//Outputs/ModernAncient.fam
+familynames: YES
+outputformat: PACKEDBED 

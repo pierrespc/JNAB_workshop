@@ -1,0 +1,11 @@
+PASS	Basic Statistics	patagonia1_E1_L1_P1.truncated.gz
+PASS	Per base sequence quality	patagonia1_E1_L1_P1.truncated.gz
+FAIL	Per tile sequence quality	patagonia1_E1_L1_P1.truncated.gz
+PASS	Per sequence quality scores	patagonia1_E1_L1_P1.truncated.gz
+PASS	Per base sequence content	patagonia1_E1_L1_P1.truncated.gz
+PASS	Per sequence GC content	patagonia1_E1_L1_P1.truncated.gz
+PASS	Per base N content	patagonia1_E1_L1_P1.truncated.gz
+WARN	Sequence Length Distribution	patagonia1_E1_L1_P1.truncated.gz
+PASS	Sequence Duplication Levels	patagonia1_E1_L1_P1.truncated.gz
+PASS	Overrepresented sequences	patagonia1_E1_L1_P1.truncated.gz
+PASS	Adapter Content	patagonia1_E1_L1_P1.truncated.gz
