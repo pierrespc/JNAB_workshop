@@ -97,9 +97,11 @@ Los archivos estan al formato "binary" de plink y se constituyen de 3 archivos
 
 Cuantas posiciones quedan?
 
-Con more Outputs/ModernAncient.fam , vemos que la información poblacional se perdió. No nos estresmos, lo vasmos a arreglaremos.
+Con `more Outputs/ModernAncienti_withOuthroups.fam `, vemos que la información poblacional se perdió. No nos estresmos, lo vasmos a arreglaremos.
+En la terminal hacer: 
+`Rscript RScripts/fixID.R  ` (correr un script R qui itera por los individuos y atribuye la poblacion (1a y 6ta columna del archivo Outputs/ModernAncienti_withOuthroups.fam) la asignada en los archivos iniales (3a columna de los archivos `.ind.txt`).
 
-- Mirar el numero de individuos por poblacion: ` awk '{print $1}' /Outputs/ModernAncient_withOutgroups | sort | uniq -c `
+- Mirar el numero de individuos por poblacion: ` awk '{print $1}' Outputs/ModernAncient_withOutgroups.fam | sort | uniq -c `
 
 ## 3. Datos faltantes
 Cuando trabajamos con datos enmascarados y datos de ADN antiguo, no podemos usar filtros estrictos sobre valores faltantes (por ejemplo en modernos sin enmascarar solemos sacar los individuos con mas de 5% de genotipos faltantes y los snps con mas de 2%). En nuestro caso, se trata de hacer un compromiso entre  trabajar con matrices de genotipos sin demasiados datos faltantes, pero al mismo tiempo poder analizar la mayor cantidad de individuos y variantes posibles. Vamos a explorar entonces las distribuciones de valores faltantes por individuo y por posicion.
@@ -111,6 +113,15 @@ Vamos a correr `sbatch 4_getMissingDataStats.sh  ` para generar:
  
 Corroborar que haya funcionado bien (mirar los Logs y si existen los Outputs esperados). Verificar que el numero de individuos es el esperado dados los ficheros de entrada. Cuantas variantes tiene el conjunto de datos generado?
 
+Ahora vamos a resumir esta informacion en R (script RScripts/distributionMissing.R). Mirar el script para ver que hace. Pedir ayuda para interpretar si necesario.
+Como tenemos que leer un archivo grande (Outputs/ModernAncient_withOutgroups.lmiss que tiene centenares de miles de lineas) y R es demandante tenemos que pdoemos pasar por un nodo de computacion y correr `sbatch 5_runRscriptForMissingDistributions.sh ` (mirarlo para entenderlo). Pero parece que trabajar directamente en el submit-node no es tan grave, entonces correr `Rscript RScripts/distributionMissing.R` para no pasar por la cola de submit.
+
+Desafortunamente, no podemos ver el pdf que se genera directamente y hay que descargarlo en la computadora.
+Hacer `scp <user>:mulatona.ccad.unc.edu.ar:/home/<user>/JNAB/dia1/sesion3/Outputs/ModernAncient_withOutgroups_missing.pdf ~/ ' y abrir el pdf en su computadora.
+
+
+ 
+ 
  
 
 
