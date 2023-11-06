@@ -44,20 +44,45 @@ Con `head <nombre del archivo> ` mirar las 10 primeras lineas del mapa, de los i
 
 ### Obtener informacion sobre los 3 conjuntos de datos con los cuales queremos trabajar
 
-Mirar el script ` 0\_init.sh `: permite crear carpetas que nos van a servir despues.  
+Mirar el script ` 0_init.sh `: permite crear carpetas que nos van a servir despues.  
 
-Mirar el script: ` 1\_getSomeNumbers.sh `. Con un bucle `for`, va a sacar diferentes numeros de los archivos. El bucle `for ` permite hacer las mismas acciones usando la variable `base` a la cual se atribuye el prefijo de cada triplet de archivos que nos interesan. Estos numeros se escriben luego en archivo de salidas guardados en la carpeta `Outputs/`.
+Mirar el script: ` 1_getSomeNumbers.sh `. Con un bucle `for`, va a sacar diferentes numeros de los archivos. El bucle `for ` permite hacer las mismas acciones usando la variable `base` a la cual se atribuye el prefijo de cada triplet de archivos que nos interesan. Estos numeros se escriben luego en archivo de salidas guardados en la carpeta `Outputs/`.
 
-Correr el script: ` ./1\_getSomeNumbers.sh `, y mirar las salidas.
+Correr el script: ` ./1_getSomeNumbers.sh `, y mirar las salidas.
 - Cuantas variantes y cuantos individuos contienen cada conjunto de datos? Cuantos individuos?
 - Cuantos individuos por poblacion?
 - Que cromosomas estan representados?
 
 
 ## Fusionar datos
-Ahora vamos a intentar fusionar los datos de individuos modernos y Antiguos.
+Ahora vamos a intentar fusionar los datos de individuos modernos y Antiguos con la [funcion mergeit de eigensoft](https://github.com/argriffing/eigensoft/blob/master/CONVERTF/README).
 
-Mirar el archivo `1_
+Mirar el archivo `2_merge_AADR-Modern.sh`.
+El header con SBATCH son las especificaciones para mandar a correr el script en un nodo de computacion:
+- vamos a usar la particion que se llama short (`#SBATCH -p short`)
+- lo  que normalmente se imprimiria en la plantalla si corremos el script directamente (es decir el stdout) se guardaran en `/home/pluisi/JNAB/dia1/sesion3/Logs/merge.o`
+- los errores que normalmente se imprimiria en la plantalla si corremos el script directamente (es decir el stderr) se guardaran en `/home/pluisi/JNAB/dia1/sesion3/Logs/merge.e`
+- el job aparecera como `merge` en la cola (`#SBATCH -J merge `)
+Luego vienen las instrucciones: 
+- las lineas `shopt -s expand_aliases
+source ~/.bash_profile ` son algunos trucos para poder correr los programas (es propio de como organizamos la instalacion de los programas en el cluster y no lo vamos a explicar).
+- `base1=${HOME}/JNAB/dia1/sesion3/StartingData/AADR/AADR_selected`
+- `base2=${HOME}/JNAB/dia1/sesion3/StartingData/AADR/AADR_selected`
+- `format=PACKEDBED` es para asignar el formato de salida (plink)
+- `outpref=...` es para asignar los nombres de los archivos de entrada y de salida, mientras que `format=...` es para asignar el formato.
+- `echo ... ` es para generar el archivo `Outputs/ModernAncient.params `
+- `mergit -p ... ` es para correr mergeit con este fichero de parametros.
+
+Mandar a correr el job con `sbatch 2_merge_AADR-Modern.sh`.
+
+Mirar el estatus de la cola con `squeue -u <user> ` (su user es `cursojnab<N>`). Cuando no aparece mas es que se acabo la corrida.
+
+Funciono? Mirar los Logs (`Logs/merge.e` y `Logs/merge.o`) y verificar si se generaron los archivos esperados en `Outputs/`
+
+ 
+
+
+
 
 
 
