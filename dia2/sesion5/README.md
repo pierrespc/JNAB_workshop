@@ -30,7 +30,7 @@ Vamos a graficar estos resultados para los 10 primeros componentes con `Rscript 
 Descargar el pdf de salida en la computadora con `scp <user>@mulatona.ccad.unc.edu.ar:/home/<user>/JNAB/dia2/sesion5/Outputs/PCA/PCAwithProjection.pdf . `.
 Que diversidad captura cada componente? Que conlusiones se pueden sacar del PC2 vs PC1? Del PC4? Del PC5?
 
-#Admixture en un contexto Global
+# Admixture en un contexto Global
 
 Vamos a usar Admixture (ver [https://dalexander.github.io/admixture/](https://dalexander.github.io/admixture/) con los datos filtrados para MAF y LD porque el modelo requiere de datos independientes.
 Se fijan K poblaciones ancestrales a priori. Vamos a probar para K entre 3 y 10. Una manera de selecionar el modelo mas robusto segun los datos es seleccionando el modelo con el menor escore de [validacion cruzada](https://datascientest.com/es/cross-validation-definicion-e-importancia). 
