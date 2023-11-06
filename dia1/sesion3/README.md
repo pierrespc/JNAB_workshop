@@ -5,9 +5,9 @@ En esta sesión, vamos a usar comandos básicos para:
 - fusionar datos
 - filtrar por valores faltantes, Frecuencia del Alelo Menor (MAF), Desequilibrio de Ligamimiento (LD)
 
-## Conocer los datos
+## 1. Conocer los datos
 
-### Explorar los ficheros
+### 1.1. Explorar los ficheros
 
 Vamos a ver a que se parecen los datos en el formato eigensoft.
 
@@ -42,7 +42,7 @@ Con `head <nombre del archivo> ` mirar las 10 primeras lineas del mapa, de los i
 - A que poblaciones pertenecen los 3 primeros individuos? (se puede mostrar solamente las 3 primeras lineas con `head -3 <pref>.ind.txt`)
 - Cual es el genotipo de lo 3 primeros individuos para las 5 primeras variantes? (se puede mostrar estos genotipos con `head -5 <pref>.geno.txt | awk -F "" '{print $1,$2,$3}' `
 
-### Obtener informacion sobre los 3 conjuntos de datos con los cuales queremos trabajar
+### 1.2. Obtener informacion sobre los 3 conjuntos de datos con los cuales queremos trabajar
 
 Mirar el script ` 0_init.sh `: permite crear carpetas que nos van a servir despues.  
 
@@ -54,9 +54,9 @@ Correr el script: ` ./1_getSomeNumbers.sh `, y mirar las salidas.
 - Que cromosomas estan representados?
 
 
-## Fusionar datos
+## 2. Fusionar datos
 
-### Modern + AADR
+### 2.1. Modern + AADR
 Ahora vamos a intentar fusionar los datos de individuos modernos y Antiguos con la [funcion mergeit de eigensoft](https://github.com/argriffing/eigensoft/blob/master/CONVERTF/README).
 
 Mirar el archivo `2_merge_AADR-Modern.sh`.
@@ -95,11 +95,22 @@ Con ` awk '{print $5,$6}' Outputs/ModernAncient.bim | sort | uniq ` se puede ver
 Con ` wc -l  Outputs/ModernAncient.fam `  podemos ver el numero de individuos (corroborar que corresponde con los inputs).
 
 
-### Modern + AADR + Outgroups
-Ahora vamos a fusionar los datos que acabamos de generar con el archivo de "Outgroups".
+### 2.2. Modern + AADR + Outgroups
+El script `3_merge_Outgoups.sh ` permite fusionar los datos que acabamos de generar con el archivo de "Outgroups".
+Mandarlo a correr con `sbatch 3_merge_Outgoups.sh `
+Es muy parecido al script previo. Mirarlo para tratar de entender los ficheros de entrada y de salida.
 
-Escribir un script para eso con el encabezado para SBATCH y mandarlo a correr.
-Lo vamos a llamar ModernAncient_withOutgoups:
+- Cuantas posiciones quedan?
+- Mirar el numero de individuos por poblacion: ` awk '{print $1}' /Outputs/ModernAncient_withOutgroups | sort | uniq -c `
+
+## 3. Datos faltantes
+Cuando trabajamos con datos enmascarados y datos de ADN antiguo, no podemos usar filtros estrictos sobre valores faltantes (por ejemplo en modernos sin enmascarar solemos sacar los individuos con mas de 5% de genotipos faltantes y los snps con mas de 2%). Ahora se trata de hacer un compromiso entre no trabajar con matrices de genotipos con demasiados datos faltantes, pero al mismo tiempo poder analizar la mayor cantidad de individuos y variantes posibles. Vamos a explorar entonces las distribuciones de valores faltantes por individuo y por posicion.
+Plink permite obtener estos datos directamente (ver [https://www.cog-genomics.org/plink/1.9/basic_stats#missing](https://www.cog-genomics.org/plink/1.9/basic_stats#missing)).
+
+Vamos a correr `sbatch 4_getMissingDataStats.sh  ` para generar:
+- `Outputs/ModernAncient_withOutgroups.imiss`: valores faltantes por individuo
+- `Outputs/ModernAncient_withOutgroups.lmiss`: valores faltantes por snp
+ 
 
 
 
