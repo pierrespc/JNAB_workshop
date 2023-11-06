@@ -27,8 +27,8 @@ Contar número de líneas en cada archivo usando el siguiente comando:
 
 ### fastqc
 Correr el programa fastqc para evaluar la calidad de los datos y visualizar resultados. El programa se puede correr directamente así:
-  `mkdir preQC`
-  `fastqc -o preQC --extract <prefix>.fq.gz`
+  - `mkdir preQC`
+  - `fastqc -o preQC --extract <prefix>.fq.gz`
 
 o enviándolo a un nodo de computación:
 
