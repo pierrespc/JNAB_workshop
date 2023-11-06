@@ -26,6 +26,17 @@ Los datos estan en StartingData.
 
 Buscar con `ls` los nombres de los archivos para AADR (ADN antiguo).
 
+Verificar que los numeros entre los archivos concuerden:
+- Obtener numero de variantes (numero de lineas en el archivo \<pref\>.snp.txt con `wc -l \<pref\>.snp.txt).
+- Obtener numero de individuos (numero de lineas en el archivo \<pref>.ind.txt con `wc  -l \<pref\>.ind.txt).
+- Obtener 
+Con `head \<nombre del archivo\> ` mirar las 10 primeras lineas del mapa, de los individuos y de la matriz de genotipos.
+- Cuales son los alelos de las 5 primeras variantes? (Se puede mostrar solamente las 5 primeras lineas con `head -5 \<pref>.snp.txt`)
+- A que poblaciones pertenecen los 3 primeros individuos? (se puede mostrar solamente las 3 primeras lineas con `head -3 \<pref>.ind.txt`)
+- Cual es el genotipo de lo 3 primeros individuos para las 5 primeras variantes? (se puede mostrar estos genotipos con `head - primer
+
+
+
 
 
 
