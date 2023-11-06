@@ -9,7 +9,7 @@ source ~/.bash_profile
 
 base1=${HOME}/JNAB/dia1/sesion3/StartingData/AADR/AADR_selected
 base2=${HOME}/JNAB/dia1/sesion3/StartingData/MaskedModernData/Luisi2020_delaFuente2018_GW.TH0.9.Nat.Phased.Mind1_Ditypes.eigen
-format=PACKEDBED
+format=PACKEDPED
 outpref=${HOME}/JNAB/dia1/sesion3//Outputs/ModernAncient
 
 ####merge the 2 eigensoft files with mergeit from EIGENSOFT v7 (output in plink format)
