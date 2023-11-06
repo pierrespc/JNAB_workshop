@@ -39,17 +39,7 @@ En aDNA, uno de los programas más populares para filtrar archivos fastq es Adap
 
 El programa se puede correr directamente así:
 
-`AdapterRemoval \
-    --file1 <prefix>.fq.gz \
-    --basename <prefix> \
-    --gzip \
-    --minlength 30 \
-    --mm 3 \
-    --trimns \
-    --trimqualities \
-    --minquality 2 \
-    --qualitybase 33 \
-    --settings <prefix>.fq.primerstats`
+`AdapterRemoval --file1 <prefix>.fq.gz --basename <prefix> --gzip --minlength 30 --mm 3 --trimns --trimqualities --minquality 2 --qualitybase 33 --settings <prefix>.fq.primerstats`
 
 o enviándolo a un nodo de computación utilizando el script 2_AdapterRemoval.sbatch:
 
