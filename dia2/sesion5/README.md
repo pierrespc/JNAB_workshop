@@ -33,13 +33,13 @@ Que diversidad captura cada componente? Que conlusiones se pueden sacar del PC2 
 # Admixture en un contexto Global
 
 Vamos a usar Admixture (ver [https://dalexander.github.io/admixture/](https://dalexander.github.io/admixture/) con los datos filtrados para MAF y LD porque el modelo requiere de datos independientes.
-Se fijan K poblaciones ancestrales a priori. Vamos a probar para K entre 3 y 10. Una manera de selecionar el modelo mas robusto segun los datos es seleccionando el modelo con el menor escore de [validacion cruzada](https://datascientest.com/es/cross-validation-definicion-e-importancia). 
+Se fijan K poblaciones ancestrales a priori. Vamos a probar para K entre 3 y 10. Una manera de selecionar el modelo mas robusto segun los datos es seleccionando el modelo con el menor escore de [validacion cruzada](https://datascientest.com/es/cross-validation-definicion-e-importancia).\ 
 Admixture se llama asi: `admixture <inputbed> K --seed <Num> --cv `. \
 Seed es una semilla aleatoria (o estado de semilla, o semilla) es un número utilizado para inicializar un generador de números pseudoaleatorios. Fijando la seed nos aseguramos que el resultado sera igual a cada repeticion. Pero si cambiamos las seeds, el resultado puede cambiar (en general llevemente). Volveremos sobre eso despues. \
 Con `--cv` decimos al programa que queremos estimar la validacion cruzada (cross-validation en ingles). Es una manera de selecionar el modelo mas robusto segun los datos es seleccionando el modelo con el menor escore de [validacion cruzada](https://datascientest.com/es/cross-validation-definicion-e-importancia).
 
 Para que las diferentes corridas de Admixture (una corrida por cada K), vamos a evitar de hacer un script que corre todo secuencialmente, pero mejor que cada corrida sea un jpb indpendiente en el cluster.
-Para eso correr `./3_Admixture.sh` (mirar como se manda cada job, es otra sintaxis alternativa a la que veniamos haciendo).\
+Para eso correr `./3_Admixture.sh` (mirar como se manda cada job, es otra sintaxis alternativa a la que veniamos haciendo).
 
 A mayor K (mas poblaciones ancestrales), mas complejo el modelo y mas tiempo de computacion. Entonces, vamos a ver como los jobs con K bajos acabaran antes que los jobs con K altos.
 
@@ -47,4 +47,6 @@ Podemos seguir el avance con los logs \
 (p.ej `less Outputs/Admixture/ModernAncient_withOutgroups.MIND0.5.GENO0.3.MAF0.05.pruned.K<K>.log `
 
 Cuando se acabaron todas las corridas de admixture, vamos a recuperar los CV scores de cada una yvolcarlas en un unico archivo llamado `Outputs/Admixture/ModernAncient_withOutgroups.MIND0.5.GENO0.3.MAF0.05.pruned.CV.tsv` \
-Correr `./4_getCV.sh` y mirar el archivo creado. Que K seleccionaria segun el CV score? Ojo: no es el modelo mas valido para explicar sus datos y los modelos con mas o menos K pueden ser muy informativos. 
+Correr `./4_getCV.sh` y mirar el archivo creado. Que K seleccionaria segun el CV score? Ojo: no es el modelo mas valido para explicar sus datos y los modelos con mas o menos K pueden ser muy informativos. Nos remitimos a Lawson et al. (2018) para un tutorial para no sobreinterpretar los resultados de admixture (ver  [https://www.nature.com/articles/s41467-018-05257-7](https://www.nature.com/articles/s41467-018-05257-7)].
+
+
