@@ -1,6 +1,6 @@
 # Sesion 3: Manejo de datos
 
-En esta sesion, vamos a usar comandos basicos para:
+En esta sesión, vamos a usar comandos básicos para:
 - explorar datos de genotipos
 - fusionar datos
 - filtrar por valores faltantes, Frecuencia del Alelo Menor (MAF), Desequilibrio de Ligamimiento (LD)
@@ -12,7 +12,7 @@ En esta sesion, vamos a usar comandos basicos para:
 Vamos a ver a que se parecen los datos en el formato eigensoft.
 
 Vamos a trabajar desde 3 archivos al formato EIGENSOFT:
-- Datos de genotipificacion de individuos modernos ( de la Fuente et al. 2018 y Luisi et al. 2020). Estos datos fueron enmascarados por individuo para quedarse solo con las regiones genomicas de ancestria genetica indigena (para cada individuo, los genotipos de las variantes en regiones con ancestria genetica no indigena fueron asignados a Valor Faltante). En `StartingData/MaskedModernData/
+- Datos de genotipificación de individuos modernos ( de la Fuente et al. 2018 y Luisi et al. 2020). Estos datos fueron enmascarados por individuo para quedarse solo con las regiones genomicas de ancestria genetica indigena (para cada individuo, los genotipos de las variantes en regiones con ancestria genetica no indigena fueron asignados a Valor Faltante). En `StartingData/MaskedModernData/
 - Datos de secuenciacion de individuos antiguos (de la Fuente et al. 2018, Nakatsuka et al. 2020, Raghavan et al. 2015), obtenidos desde el [Allen Ancient DNA Resource (AADR)](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/FFIDCW). En `StartingData/AADR/`
 - Datos de secuenciacion de individuos modernos de Francia (French), de Nigeria (Yoriba) y Congo (Mbuti). En `StartingData/Outgroups/`
 
