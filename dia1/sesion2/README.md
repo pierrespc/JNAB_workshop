@@ -77,6 +77,7 @@ Los patrones de daño pueden ser evaluados con el programa mapDamage. Ejecutar e
 
 `mapdamage  --folder=<prefix>_mapDamage -i <prefix>.rmdup.uniq.rg.realn.md.bam -r <referencia.fa>`
 
+Crear un archivo sbatch para ejecutar comando
 
 ## 5. Archivo de variantes (VCF): mtDNA
 Por cuestiones de tiempo y espacio los archivos fastq y alineamiento estuvieron limitados a mtDNA. Esto facilitará la obtención de un archivo de variantes (VCF), el cual se puede generar de la siguiente manera:  
