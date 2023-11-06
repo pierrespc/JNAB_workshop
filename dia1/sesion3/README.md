@@ -55,6 +55,8 @@ Correr el script: ` ./1_getSomeNumbers.sh `, y mirar las salidas.
 
 
 ## Fusionar datos
+
+### Primer intento
 Ahora vamos a intentar fusionar los datos de individuos modernos y Antiguos con la [funcion mergeit de eigensoft](https://github.com/argriffing/eigensoft/blob/master/CONVERTF/README).
 
 Mirar el archivo `2_merge_AADR-Modern.sh`.
@@ -78,6 +80,22 @@ Mandar a correr el job con `sbatch 2_merge_AADR-Modern.sh`.
 Mirar el estatus de la cola con `squeue -u <user> ` (su user es `cursojnab<N>`). Cuando no aparece mas es que se acabo la corrida.
 
 Funciono? Mirar los Logs (`Logs/merge.e` y `Logs/merge.o`) y verificar si se generaron los archivos esperados en `Outputs/`
+
+Los archivos estan al formato "binary" de plink y se constituyen de 3 archivos
+- `<pref>.bim`: mapa de las variantes con 6 columnas chr | snpID | posicion (en cM) | posicion (en bp) | Alelo1 | Alelo2 (ver [https://www.cog-genomics.org/plink/1.9/formats#fam](https://www.cog-genomics.org/plink/1.9/formats#bim)
+- `<pref>.fam`: informacion sobre los individuos FamilyID | IndID |  fatherID |  motherID | Sex | Phenotype (ver [https://www.cog-genomics.org/plink/1.9/formats#fam](https://www.cog-genomics.org/plink/1.9/formats#fam))
+- `<pref>.bed: matriz de genotipos (binario y no se puede leer directamente; ver [https://www.cog-genomics.org/plink/1.9/formats#fam](https://www.cog-genomics.org/plink/1.9/formats#bed).
+
+ 
+Vemos que no le gusta que los alelos no sean consistentes entre los dos archivos. Eso se debe a que puede ser una posicion tri-allelica pero eigensoft (y plink) solo reconocen posiciones bi-allelica.
+Pero ademas cuando trabajamos con datos de genotipificacion, existe el problema de la cadena: un A leido en la cadena + corresponde a un T en la cadena -. Lo mismo para C/G. Llamamos los genotipos A/T y C/G "ambiguos". Cuando trabajamos con datos de secuenciacion, en general todo se lee con la cadena + y no hay ambiguidad, pero con datos de genotipificacion, es mas complicado (depende de la poisicion y de la tecnologia), entonces es recomendable sacar las posiciones con alelos A/T y C/G. Es lo que hace eigensoft.
+
+Con `wc -l Outputs/ModernAncient.bim ` se puede consultar cuantas posiciones quedaron.
+Con ` awk '{print $5,$6}' Outputs/ModernAncient.bim | sort | uniq ` se puede ver el conteo de las combinaciones Alelo1/Alelo2 de las variantes que quedan, y verificar que ya no hay genotipos ambiguois.
+Con ` wc -l  Outputs/ModernAncient.fam `  podemos ver el numero de individuos (corroborar que corresponde con los inputs).
+
+
+
 
  
 
