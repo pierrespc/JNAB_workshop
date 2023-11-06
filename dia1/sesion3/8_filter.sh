@@ -8,12 +8,17 @@ shopt -s expand_aliases
 source ~/.bash_profile
 
 base=${HOME}/JNAB/dia1/sesion3/Outputs/ModernAncient_withOutgroups
-MaxMissingRatePerInd=0.8
-MaxMissingRatePerSnp=0.4
+MaxMissingRatePerInd=0.5
+MaxMissingRatePerSnp=0.3
 MinorAlleleFrequency=0.05
 
-### filter for missing (--mind and --geno)
-plink --bfile ${base} --mind ${MaxMissingRatePerInd} --geno ${MaxMissingRatePerInd} --make-bed --out ${base}.MIND${MaxMissingRatePerInd}.GENO${MaxMissingRatePerSnp} 
+### filter individuals for missing (--mind)
+plink --bfile ${base} --mind ${MaxMissingRatePerInd} --make-bed --out ${base}.MIND${MaxMissingRatePerInd}
+
+##### filter snps for missing (--mind)
+
+
+plink --bfile ${base} --geno ${MaxMissingRatePerInd} --make-bed --out ${base}.MIND${MaxMissingRatePerInd}.GENO${MaxMissingRatePerSnp} 
 
 ##on this we filter for MAF
 plink --bfile ${base}.MIND${MaxMissingRatePerInd}.GENO${MaxMissingRatePerSnp} --maf --make-bed --out ${base}.MIND${MaxMissingRatePerInd}.GENO${MaxMissingRatePerSnp}.MAF${MinorAlleleFrequency}

@@ -125,6 +125,7 @@ Para usarla, hay que creo un archivo que contiene por los menos las columnas Fam
 Correr `sbatch 6_getMissingDataStats_perDataSet.sh `. Miremos las distribuciones de los valores faltantes en cada sub-conjunto:
 - Primero los datos modernos:` Rscript ModernAncient_withOutgroups_onlyModernEnmascarados`
 - Luego los datos antiguos:` Rscript ModernAncient_withOutgroups_onlyAncient`
+(Estos se pueden correr en un nodo de computacion con `sbatch  7_runRscriptForMissingDistributions_divided.sh`) 
 Copiar en la computadora estos archivos con comando scp:
 - scp <user>@mulatona.ccad.unc.edu.ar:/home/<user>/JNAB/dia1/sesion3/Outputs/ModernAncient_withOutgroups_onlyModernEnmascarados_missing.pdf ~/ 
 - scp <user>@mulatona.ccad.unc.edu.ar:/home/<user>/JNAB/dia1/sesion3/Outputs/ModernAncient_withOutgroups_onlyAncient_missing.pdf ~/
@@ -132,15 +133,25 @@ Copiar en la computadora estos archivos con comando scp:
 Vemos que para muchos SNPs, la tasa de faltante en los datos modernos enmascarados es de 1: es decir que las posiciones no estan representadas en estos datos. Es lo que hace eigensoft, no filtra por posiciones que se solapan entre dos conjuntos de datos, pero atribuye genotipo faltante para todos los individuos de un conjunto para las posiciones no presentes en este pero si en el otro conjunto.
 Vemos que para los datos antiguos, no hay este problema. Para evitar de usar posiciones solo en un conjunto de datos (solo para antiguos), vamos a aplicar primero un filtro sobre valores faltantes por posicion, adaptando el umbral.
 Tenemos 47+141+56=244 individuos. 141 son de los datos enmascarados. Si sacamos los snps con mas de 141/255 = ~ 0.55 estamos seguros de no tener mas estos SNPs. 
-El preblema con plink es que si aplicamos el filtro para snp y individuo en el mismo comando, aplica siempre el filtro por individuo primero. Entonces tenemos que hacerlo secuencialmente.
+El problema con plink es que si aplicamos el filtro para snp y individuo en el mismo comando, aplica siempre el filtro por individuo primero. Entonces tenemos que hacerlo secuencialmente.
 - Vamos a usar la funcion [`--geno`](https://www.cog-genomics.org/plink/1.9/filter#missing) con un umbral de 0.5 (para ser conservador)).
 - Luego filtraremos los individuos con una tasa de valores faltantes superior a 0.3 (con [`--mind`](https://www.cog-genomics.org/plink/1.9/filter#missing)).
 - Luego filtraremos por Minor Allele Frequency (MAF) con un umbral de 0.01 (con [`--maf `](https://www.cog-genomics.org/plink/1.9/filter#maf)).
 - Y finalmente guardaremos solo los [tag-snps](https://www.cancer.gov/espanol/publicaciones/diccionarios/diccionario-genetica/def/tagsnp) para tener variantes independientes (necesario para admixture que usaremos en la sesion 5). Los tag-snps se buscan con una aproximacion de ventanilla corredera de 50 snps, con un offset de 5, with r2>0.5 usando el parametro `--indep-pairwise 50 5 0.5`. Genera un archivoprune.in con los tag-snps, que podemos luego leer en plink con la funcion `--extract`.
+Todos estos pasos estan incorporados en `8_filter.sh`. Correr `sbatch 8_filter.sh`.
 
+Miremos los individuos que se sacaron por el primero filtro (`--mind`) con:
+`more Outputs/ModernAncient_withOutgroups.MIND0.5.irem `.
+Nota: si hay individuos que nos interesan particularmente pero que se sacaron, siempre podemos verificar su tasa de valores faltantes con la funcion `grep` aplicada en el archivo Outputs/ModernAncient_withOutgroups.imiss, para ver si re-adaptar el umbral para el filtro `--mind`. 
 
+Veamos como disminuye el numero de SNPs a cada filtro subsecuente.
+` wc -l Outputs/ModernAncient_withOutgroups.MIND0.5.GENO\*bim`
 
+### 2.2. AADR + Mbuti as outgroup para F-stats
+En la sesion 5, vamos a usar los F-statistics entre individuos (o grupos de individuos) antiguos que requieren un Outgroup, pero no queremos calcular los F-stats con poblaciones no americanas. Queremos por lo tanto sacar los individuos Yoruba y Franceses, y volver al format EIGENSOFT. No vamos a usar el archivo filtrado por LD o por MAF y partimos de `Outputs/ModernAncient_withOutgroups.MIND0.5.GENO0.2.{bed,bim,fam}`.
 
+Con `awk`, asignamos "Ignore" como poblacion a todos los individuos modernos menos Mbuti. Esto permite filtrarlos con eigensoft cuando corremos `convertf`.
+ 
 
  
 
