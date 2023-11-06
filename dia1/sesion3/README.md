@@ -117,11 +117,31 @@ Ahora vamos a resumir esta informacion en R (script RScripts/distributionMissing
 Como tenemos que leer un archivo grande (Outputs/ModernAncient_withOutgroups.lmiss que tiene centenares de miles de lineas) y R es demandante tenemos que pdoemos pasar por un nodo de computacion y correr `sbatch 5_runRscriptForMissingDistributions.sh ` (mirarlo para entenderlo). Pero parece que trabajar directamente en el submit-node no es tan grave, entonces correr `Rscript RScripts/distributionMissing.R` para no pasar por la cola de submit.
 
 Desafortunamente, no podemos ver el pdf que se genera directamente y hay que descargarlo en la computadora.
-Hacer `scp <user>:mulatona.ccad.unc.edu.ar:/home/<user>/JNAB/dia1/sesion3/Outputs/ModernAncient_withOutgroups_missing.pdf ~/ ' y abrir el pdf en su computadora.
+Desde la terminal de la computadora (no estando conectado a mulatona), hacer `scp <user>@mulatona.ccad.unc.edu.ar:/home/<user>/JNAB/dia1/sesion3/Outputs/ModernAncient_withOutgroups_missing.pdf ~/ ' y abrir el pdf en su computadora.
+
+Vemos que la tasa de valor faltante para los individuos modernos enmascarados es mucho mas alta que para los antiguos. Y vemos que la distribucion de la tasa de valores faltantes por variante es bi-modal. Esto suele pasar cuando la lista de variantes entre dos conjuntos de datos son distintas. Vamos a corroborar mirando mirando la tasa de valores faltantes por snp en sub-conjuntos de individuos.
+En plink existe la opcion [`--keep ` para filtrar individuos](https://www.cog-genomics.org/plink/1.9/filter#indiv). 
+Para usarla, hay que creo un archivo que contiene por los menos las columnas FamilyID | IndID. Este se puede generar facilmente con comandos de bash desde el fichero fam de partida, si conocemos bien los datos. Mirar en el script  `6_getMissingDataStats_perDataSet.sh` como se generan los dos archivos `ModernAncient_withOutgroups_onlyModernEnmascarados.KEEP` y `ModernAncient_withOutgroups_onlyAncient.KEEP` a traves de la funcion `grep`.
+Correr `sbatch 6_getMissingDataStats_perDataSet.sh `. Miremos las distribuciones de los valores faltantes en cada sub-conjunto:
+- Primero los datos modernos:` Rscript ModernAncient_withOutgroups_onlyModernEnmascarados`
+- Luego los datos antiguos:` Rscript ModernAncient_withOutgroups_onlyAncient`
+Copiar en la computadora estos archivos con comando scp:
+- scp <user>@mulatona.ccad.unc.edu.ar:/home/<user>/JNAB/dia1/sesion3/Outputs/ModernAncient_withOutgroups_onlyModernEnmascarados_missing.pdf ~/ 
+- scp <user>@mulatona.ccad.unc.edu.ar:/home/<user>/JNAB/dia1/sesion3/Outputs/ModernAncient_withOutgroups_onlyAncient_missing.pdf ~/
+
+Vemos que para muchos SNPs, la tasa de faltante en los datos modernos enmascarados es de 1: es decir que las posiciones no estan representadas en estos datos. Es lo que hace eigensoft, no filtra por posiciones que se solapan entre dos conjuntos de datos, pero atribuye genotipo faltante para todos los individuos de un conjunto para las posiciones no presentes en este pero si en el otro conjunto.
+Vemos que para los datos antiguos, no hay este problema. Para evitar de usar posiciones solo en un conjunto de datos (solo para antiguos), vamos a aplicar primero un filtro sobre valores faltantes por posicion, adaptando el umbral.
+Tenemos 47+141+56=244 individuos. 141 son de los datos enmascarados. Si sacamos los snps con mas de 141/255 = ~ 0.55 estamos seguros de no tener mas estos SNPs. 
+El preblema con plink es que si aplicamos el filtro para snp y individuo en el mismo comando, aplica siempre el filtro por individuo primero. Entonces tenemos que hacerlo secuencialmente.
+- Vamos a usar la funcion [`--geno`](https://www.cog-genomics.org/plink/1.9/filter#missing) con un umbral de 0.5 (para ser conservador)).
+- Luego filtraremos los individuos con una tasa de valores faltantes superior a 0.3 (con [`--mind`](https://www.cog-genomics.org/plink/1.9/filter#missing)).
+- Luego filtraremos por Minor Allele Frequency (MAF) con un umbral de 0.01 (con [`--maf `](https://www.cog-genomics.org/plink/1.9/filter#maf)).
+- Y finalmente guardaremos solo los [tag-snps](https://www.cancer.gov/espanol/publicaciones/diccionarios/diccionario-genetica/def/tagsnp) para tener variantes independientes (necesario para admixture que usaremos en la sesion 5). Los tag-snps se buscan con una aproximacion de ventanilla corredera de 50 snps, con un offset de 5, with r2>0.5 usando el parametro `--indep-pairwise 50 5 0.5`. Genera un archivoprune.in con los tag-snps, que podemos luego leer en plink con la funcion `--extract`.
 
 
- 
- 
+
+
+
  
 
 
