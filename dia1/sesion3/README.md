@@ -90,6 +90,7 @@ Con `wc -l Outputs/ModernAncient.bim ` se puede consultar cuantas posiciones que
 Con ` awk '{print $5,$6}' Outputs/ModernAncient.bim | sort | uniq ` se puede ver el conteo de las combinaciones Alelo1/Alelo2 de las variantes que quedan, y verificar que ya no hay genotipos ambiguos.
 Con ` wc -l  Outputs/ModernAncient.fam `  podemos ver el número de individuos (corroborar que corresponde con los inputs).
 
+Con ` more Outputs/ModernAncient.fam  `, vemos que la información poblacional se perdió. No nos estresmos, lo arreglaremos después.
 
 ### 2.2. Modern + AADR + Outgroups
 El script `3_merge_Outgoups.sh ` permite fusionar los datos que acabamos de generar con el archivo de "Outgroups".
