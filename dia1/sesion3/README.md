@@ -5,7 +5,10 @@ En esta sesion, vamos a usar comandos basicos para:
 - fusionar datos
 - filtrar por valores faltantes, Frecuencia del Alelo Menor (MAF), Desequilibrio de Ligamimiento (LD)
 
-## Explorar los ficheros
+## Conocer los datos
+
+### Explorar los ficheros
+
 Vamos a ver a que se parecen los datos en el formato eigensoft.
 
 Vamos a trabajar desde 3 archivos al formato EIGENSOFT:
@@ -37,10 +40,24 @@ Son consistentes estos numeros?
 Con `head <nombre del archivo> ` mirar las 10 primeras lineas del mapa, de los individuos y de la matriz de genotipos.
 - Cuales son los alelos de las 5 primeras variantes? (Se puede mostrar solamente las 5 primeras lineas con `head -5 <pref>.snp.txt`)
 - A que poblaciones pertenecen los 3 primeros individuos? (se puede mostrar solamente las 3 primeras lineas con `head -3 <pref>.ind.txt`)
-- Cual es el genotipo de lo 3 primeros individuos para las 5 primeras variantes? (se puede mostrar estos genotipos con `head -5 <pref>.geno.txt | awk -F "" '{print $1,$2,$3}')
+- Cual es el genotipo de lo 3 primeros individuos para las 5 primeras variantes? (se puede mostrar estos genotipos con `head -5 <pref>.geno.txt | awk -F "" '{print $1,$2,$3}' `
+
+### Obtener informacion sobre los 3 conjuntos de datos con los cuales queremos trabajar
+
+Mirar el script ` 0\_init.sh `: permite crear carpetas que nos van a servir despues.  
+
+Mirar el script: ` 1\_getSomeNumbers.sh `. Con un bucle `for`, va a sacar diferentes numeros de los archivos. El bucle `for ` permite hacer las mismas acciones usando la variable `base` a la cual se atribuye el prefijo de cada triplet de archivos que nos interesan. Estos numeros se escriben luego en archivo de salidas guardados en la carpeta `Outputs/`.
+
+Correr el script: ` ./1\_getSomeNumbers.sh `, y mirar las salidas.
+- Cuantas variantes y cuantos individuos contienen cada conjunto de datos? Cuantos individuos?
+- Cuantos individuos por poblacion?
+- Que cromosomas estan representados?
 
 
+## Fusionar datos
+Ahora vamos a intentar fusionar los datos de individuos modernos y Antiguos.
 
+Mirar el archivo `1_
 
 
 
