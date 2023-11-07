@@ -50,45 +50,45 @@ adjustTextRight=300
 
 MyColors<-c("rosybrown","brown","darkolivegreen","darkorange","goldenrod","limegreen","saddlebrown","seagreen","palegreen","cadetblue")
 for(KNUM in listKNUM){
-  print(paste("plotting K=",KNUM,sep=""))
   #a<-read.table(paste("chr1.1KG.PopArg.pruned.",KNUM,".Q",sep=""),stringsAsFactors=F,header=F)
   getFile=paste(pref,".",KNUM,".Q",sep="")
   a<-read.table(getFile,stringsAsFactors=F,header=F)
 #	outfile<-paste("chr1.1KG.PopArg.pruned.K",KNUM,".pdf",sep="")
   outfile<-paste(pref,".",KNUM,sep="")
 
+  print(paste("plotting K = ",KNUM,sep=""))
 
   numberK=dim(a)[2]
   numberInd=dim(a)[1]
 
   if(KNUM==2){
-    MyColors<-c("seagreen","darkorange")
+    MyColors<-c("limegreen","cadetblue3")
   }
   if(KNUM==3){
-    MyColors<-c("cadetblue3","darkorange","seagreen")
+    MyColors<-c("cadetblue3","limegreen","darkorange")
   }
   if(KNUM==4){
-    MyColors<-c("darkorange","cadetblue","seagreen","cadetblue3")
+    MyColors<-c("darkorange","cadetblue3","limegreen","cadetblue")
   }
   if(KNUM==5){
-    MyColors<-c("skyblue1","limegreen","cadetblue","darkorange","cadetblue3")
+    MyColors<-c("skyblue1","limegreen","cadetblue3","darkorange","cadetblue")
   }
   if(KNUM==6){
-    MyColors<-c("darkorange","lightgreen","cadetblue3","limegreen","skyblue1","cadetblue")
+    MyColors<-c("lightgreen","darkorange","cadetblue","limegreen","skyblue1","cadetblue3")
   }
   if(KNUM==7){
-    MyColors<-c("skyblue1","lightgreen","cadetblue","darkorange","limegreen","cadetblue3","pink2")
+    
+    MyColors<-c("skyblue1","pink2","limegreen","darkorange","lightgreen","cadetblue","cadetblue3")
   }
   if(KNUM==8){
-    
-    MyColors<-c("limegreen","skyblue1","cadetblue3","pink2","lightblue1","darkorange","lightgreen","cadetblue")
+    MyColors<-c("darkorange","cadetblue","pink2","lightgreen","skyblue1","cadetblue3","limegreen","lightblue1")
   }
   if(KNUM==9){
-    MyColors<-c("darkolivegreen","limegreen","lightgreen","skyblue1","pink2","cadetblue3","cadetblue","darkorange","lightblue1")
+    MyColors<-c("pink2","limegreen","cadetblue3","skyblue1","violet","lightgreen","cadetblue","darkorange","lightblue1")
   }
   if(KNUM==10){
     
-    MyColors<-c("lightgreen","darkorange","cadetblue3","limegreen","skyblue1","brown","pink2","lightblue1","cadetblue","violet")
+    MyColors<-c("darkorange","violet","lightblue1","lightgreen","blue1","skyblue1","pink2","cadetblue","limegreen","cadetblue3")
   }
   
   if(length(unique(MyColors))!=KNUM){

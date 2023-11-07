@@ -59,6 +59,7 @@ En este caso, usaremos un script casero en R que permite guardar los individuos 
 
 Mirando los graficos para diferentes K
 - Tratar de interpretar los diferentes componentes. A diferentes K, cada color se interpreta exactamente igual? Es decir cada componente representa exactamente la misma ancestria genetica?
+- Cuando vemos patrones muy distinctos para algunos individuos a K elevados, empezamos a sospechar que el modelo no explica bien los datos. Identificar hasta que K los resultados son consistentes.
 - Que patrones podemos identificar para Patagonia a traves del tiempo?
 - A que grupos de suamerica parecen estar mas cercanas las poblaciones de Patagonia?
 - Podemos identificar una estructura en la region?
