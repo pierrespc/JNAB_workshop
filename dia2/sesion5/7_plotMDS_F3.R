@@ -40,11 +40,8 @@ dm<-data.frame(matrix(NA,length(listInd),length(listInd)))
 names(dm)<-listInd
 rownames(dm)<-listInd
 for(p1 in c(1:(length(listInd)-1))){
-  print(p1)
   dm[p1,p1]<-0
   for(p2 in c((p1+1):length(listInd))){
-	  print(paste(p1,p2))
-    print(na.omit(c(f3$f_3[ f3$Source1==listInd[p1] & f3$Source2==listInd[p2]],f3$f_3[ f3$Source1==listInd[p2] & f3$Source2==listInd[p1]])))
     dm[p2,p1]<-dm[p1,p2]<-1 -na.omit(c(f3$f_3[ f3$Source1==listInd[p1] & f3$Source2==listInd[p2]],f3$f_3[ f3$Source1==listInd[p2] & f3$Source2==listInd[p1]]))
   }
   
@@ -65,7 +62,7 @@ mds<-merge(mds,Colors,by="Population")
 print(dim(mds))
 
 pdf(paste(prefF3file,".pdf",sep=""))
-for(i in seq(1,sum(str_starts(names(mds),"X")),2)){
+for(i in seq(1,sum(grepl("X",names(mds))),2)){
       plot(mds[,paste("X",i,sep="")],mds[,paste("X",i+1,sep="")],"n",
            main="MDS based on 1-F3(Ind1,Ind2;Mbuti)",
            xlab=paste("Dim.",i),
@@ -75,6 +72,7 @@ for(i in seq(1,sum(str_starts(names(mds),"X")),2)){
              col=ifelse(mds$Point<21,mds$Color,"black"),
              bg=mds$Color)
 }
+plot(0,0,"n",axes=F,ann=F)
 Leg<-unique(mds[,c("Region","Population","Color","Point")])
 legend("center",pch=Leg$Point,col=ifelse(Leg$Point<21,Leg$Color,"black"),
          pt.bg=Leg$Color,
@@ -82,4 +80,4 @@ legend("center",pch=Leg$Point,col=ifelse(Leg$Point<21,Leg$Color,"black"),
          ncol=2,
          cex=0.5)
 dev.off()
-write.table(mds,paste(prefF3,"_MDS.tsv",sep=""),col.names=T,row.names=F,sep="\t",quote=F)
+write.table(mds,paste(prefF3file,"_MDS.tsv",sep=""),col.names=T,row.names=F,sep="\t",quote=F)
