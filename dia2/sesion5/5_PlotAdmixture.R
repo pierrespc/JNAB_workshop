@@ -6,7 +6,7 @@ root=getwd()
 params<-c(paste(root,"/Outputs/Admixture/",sep=""),
 	  paste(root,"/StartingData/",sep=""),
 	  "ModernAncient_withOutgroups.MIND0.5.GENO0.3.MAF0.05.pruned",
-	   "None",
+	   paste(root,"/ColorFiles/OrderInd_Admixture.txt",sep=""),
 	   paste(root,"/ColorFiles/ColorCode.tsv",sep=""))
 
 if(length(params)!= 5){
@@ -28,17 +28,29 @@ orderRegions<-c("Africa","Europe",
 		"Brazil_EH","Brazil_MH","Pampa_MH",
 		"CentralChile_MH",
 		"SouthPatagonia_MH","SouthPatagonia_LH")
+
+listPLOTregion<-list("Modern"=c("Africa","Europe",
+                                "Catamarca_Modern","Jujuy_Modern","LaRioja_Modern","Salta_Modern","SanJuan_Modern","Tucuman_Modern",
+                                "AMBA_Modern","BsAs_Modern","EntreRios_Modern","Cordoba_Modern","SanLuis_Modern",
+                                "Corrientes_Modern","Formosa_Modern","Misiones_Modern",
+                                "CentralChile_Modern",
+                                "Bariloche_Modern","Chubut_Modern","TierraDelFuego_Modern",
+                                "SouthPatagonia_Modern"),
+                       "Ancient"=c("CentralAndes_EH","CentralAndes_MH",
+                                   "Brazil_EH","Brazil_MH","Pampa_MH",
+                                   "CentralChile_MH",
+                                   "SouthPatagonia_MH","SouthPatagonia_LH"))
 pref=params[3]
 OrderIND=params[4]
 #FocusReg<-c("Ancient Central Chile","Central Chile","Patagonia","Ancient Patagonia","Tierra del Fuego","Ancient Tierra del Fuego")
 fam<-read.table(paste(params[2],"/",pref,".fam",sep=""),stringsAsFactors = F,header=F)
 regions<-read.table(params[5],stringsAsFactors=F,header=T,comment.char = "@",sep="\t")
 orderRegions<-orderRegions[ orderRegions %in% regions$Region]
-print(orderRegions[ !orderRegions %in% regions$Region])
 adjustTextRight=300
 
 MyColors<-c("rosybrown","brown","darkolivegreen","darkorange","goldenrod","limegreen","saddlebrown","seagreen","palegreen","cadetblue")
 for(KNUM in listKNUM){
+  print(paste("plotting K=",KNUM,sep=""))
   #a<-read.table(paste("chr1.1KG.PopArg.pruned.",KNUM,".Q",sep=""),stringsAsFactors=F,header=F)
   getFile=paste(pref,".",KNUM,".Q",sep="")
   a<-read.table(getFile,stringsAsFactors=F,header=F)
@@ -53,47 +65,32 @@ for(KNUM in listKNUM){
     MyColors<-c("seagreen","darkorange")
   }
   if(KNUM==3){
-    MyColors<-c("cadetblue","darkorange","seagreen")
+    MyColors<-c("cadetblue3","darkorange","seagreen")
   }
   if(KNUM==4){
-    MyColors<-c("cadetblue","seagreen","limegreen","darkorange")
+    MyColors<-c("darkorange","cadetblue","seagreen","cadetblue3")
   }
   if(KNUM==5){
-    MyColors<-c("limegreen","darkorange","cadetblue","brown","seagreen")
+    MyColors<-c("skyblue1","limegreen","cadetblue","darkorange","cadetblue3")
   }
   if(KNUM==6){
-    MyColors<-c("darkolivegreen","seagreen","limegreen","cadetblue","darkorange","brown")
+    MyColors<-c("darkorange","lightgreen","cadetblue3","limegreen","skyblue1","cadetblue")
   }
   if(KNUM==7){
-    MyColors<-c("brown","darkolivegreen","limegreen","seagreen","darkorange","cadetblue","goldenrod")
+    MyColors<-c("skyblue1","lightgreen","cadetblue","darkorange","limegreen","cadetblue3","pink2")
   }
   if(KNUM==8){
-    MyColors<-c("darkolivegreen","goldenrod","cadetblue","brown","limegreen","palegreen","seagreen","darkorange")
+    
+    MyColors<-c("limegreen","skyblue1","cadetblue3","pink2","lightblue1","darkorange","lightgreen","cadetblue")
   }
   if(KNUM==9){
-    MyColors<-c("darkolivegreen","darkorange","limegreen","cadetblue","seagreen","goldenrod","brown","palegreen","saddlebrown")
+    MyColors<-c("darkolivegreen","limegreen","lightgreen","skyblue1","pink2","cadetblue3","cadetblue","darkorange","lightblue1")
   }
   if(KNUM==10){
-    MyColors<-c("rosybrown","brown","darkolivegreen","darkorange","goldenrod","limegreen","saddlebrown","seagreen","palegreen","cadetblue")
+    
+    MyColors<-c("lightgreen","darkorange","cadetblue3","limegreen","skyblue1","brown","pink2","lightblue1","cadetblue","violet")
   }
-  if(KNUM==11){
-    MyColors<-c("brown","palegreen","saddlebrown","darkolivegreen","darkorange","black","goldenrod","limegreen","cadetblue","yellowgreen","seagreen")
-  }
-  if(KNUM==12){
-    MyColors<-c("yellowgreen","royalblue","saddlebrown","brown","seagreen","limegreen","palegreen","darkolivegreen","cadetblue","darkorange","rosybrown","goldenrod")
-  }
-  if(KNUM==13){
-    MyColors<-c("cadetblue","seagreen","rosybrown","goldenrod","brown","saddlebrown","limegreen","green","yellow3","palegreen","darkorange","yellowgreen","darkolivegreen")
-  }
-  if(KNUM==14){
-    MyColors<-c("skyblue","goldenrod4","palegreen","yellowgreen","darkorange","goldenrod","rosybrown","cadetblue","darkolivegreen","seagreen","limegreen","saddlebrown","brown","yellow3")
-  }
-  if(KNUM==15){
-    MyColors<-c("saddlebrown","yellow3","limegreen","goldenrod","rosybrown","darkolivegreen4","brown","darkorange","skyblue","seagreen","cadetblue","royalblue","darkolivegreen","palegreen","yellowgreen")
-  }
-  if(KNUM==16){
-    MyColors<-c("darkolivegreen4","limegreen","darkorange","darkolivegreen","royalblue","lightblue","goldenrod4","rosybrown","saddlebrown","cadetblue","palegreen","yellowgreen","brown","yellow3","goldenrod","seagreen")
-  }
+  
   if(length(unique(MyColors))!=KNUM){
     print(MyColors[duplicated(MyColors)])
     stop("pb num col")
@@ -105,16 +102,15 @@ for(KNUM in listKNUM){
 
   #a$Region[ is.na(a$Region)]<-a$
 
-  numPops<-max(table(unique(a[,c("Population","Region")])$Region))
-  numRegions<-1
-  numInds<-max(table(unique(a[,c("Ind","Region")])$Region))
+  numPops<-length(unique(a$Pops))
+  numRegions<-length(unique(a$Region))
+  numInds<-nrow(a)
   if(dim(a)[1] != numberInd){
 	  stop("your regions file and admixture output do not coincide: do not have the same number of Pops")
   }
 
   out<-c()
   for(reg in orderRegions){
-    print(reg)
     temp<-a[ a$Region == reg,]
     if(dim(temp)[1]==0){
       print(paste(reg,"skipped"))
@@ -139,7 +135,6 @@ for(KNUM in listKNUM){
 	  meanOverRegion<-meanOverRegion[order(as.numeric(meanOverRegion),decreasing=T)]
 	  meanOverPop<-meanOverPop[,names(meanOverRegion)]
 	  meanOverPop<-meanOverPop[order(meanOverPop[,1],decreasing=T),]
-	  print(head(meanOverPop))
 	  for(pop in rownames(meanOverPop)){
 		  temp2<-a[ a$Population == pop,]
 		  temp2<-temp2[order(temp2[,names(meanOverRegion)[1]],decreasing=T),]
@@ -160,51 +155,52 @@ for(KNUM in listKNUM){
   separPop=1
   separ=1
   pdf(paste(outfile,".pdf",sep=""), width=180,height=20)
-  par(mar=c(1, 2, 40, 2) + 0.1)
-
-  plot(0,0,"n",ylim=c(0,1),xlim=c(0,(numInds+separPop*(numPops-numRegions)+numRegions*(separ)))*1.1,main=paste("K =", numberK),ann=F,axes=F)
-  xleft=0
-  atPop<-c()
-  dimPrevRegion<- 0
-  atRegion<-c()
-  ITER = 0
-  for(reg in orderRegions){
+  par(mar=c(1, 2, 50, 2) + 0.1)
+  for(plotname in names(listPLOTregion)){  
+    plot(0,0,"n",ylim=c(0,1),xlim=c(0,(numInds+separPop*(numPops-numRegions)+numRegions*(separ)))*1.1,main=paste("K =", numberK),ann=F,axes=F)
+    xleft=0
+    atPop<-c()
+    dimPrevRegion<- 0
+    atRegion<-c()
+    ITER = 0
+    for(reg in listPLOTregion[[plotname]]){
    	  temp<-out[ out$Region == reg,]
-	  Population=temp$Population[1]
-	  ITER=ITER+1
+	    Population=temp$Population[1]
+	    ITER=ITER+1
 	
-	  Population2=Population
-	  #axis(3,at=xleft+mean(c(0,sum(temp$Population==Population))),label=Population,cex.axis=6,las=2,col.axis=unique(temp$Color[temp$Population==Population]),tick=T)
-	  axis(3,at=xleft+mean(c(0,sum(temp$Population==Population))),label=Population2,cex.axis=6,las=2,tick=T)
-	  #axis(3,at=xleft+mean(c(0,sum(temp$Population==Population))),label=ITER,cex.axis=6,las=2,col.axis=unique(temp$Color[temp$Population==Population]),tick=T)
-	  for(ind in unique(temp$Ind)){
-		  ybottom=0
-		  if(temp$Population[ temp$Ind==ind] != Population){
-			  Population=temp$Population[ temp$Ind==ind]
-        #rect(xleft=xleft,xright=xleft+separPop,ybottom=0,ytop=1,col="black",border=NA)
-			  xleft=xleft+separPop
-			  ITER=ITER+1
+	    Population2=strsplit(Population,split="_Modern")[[1]][1]
+	    #axis(3,at=xleft+mean(c(0,sum(temp$Population==Population))),label=Population,cex.axis=6,las=2,col.axis=unique(temp$Color[temp$Population==Population]),tick=T)
+	    axis(3,at=xleft+mean(c(0,sum(temp$Population==Population))),label=Population2,cex.axis=4,las=2,tick=T)
+	    #axis(3,at=xleft+mean(c(0,sum(temp$Population==Population))),label=ITER,cex.axis=6,las=2,col.axis=unique(temp$Color[temp$Population==Population]),tick=T)
+	    for(ind in unique(temp$Ind)){
+  		  ybottom=0
+	  	  if(temp$Population[ temp$Ind==ind] != Population){
+		  	  Population=temp$Population[ temp$Ind==ind]
+          #rect(xleft=xleft,xright=xleft+separPop,ybottom=0,ytop=1,col="black",border=NA)
+			    xleft=xleft+separPop
+			    ITER=ITER+1
 			
-	  		#axis(3,at=xleft+mean(c(0,sum(temp$Population==Population))),label=Population,cex.axis=6,las=2,col.axis=unique(temp$Color[temp$Population==Population]),tick=T)
-			  Population2=Population
-			  axis(3,at=xleft+mean(c(0,sum(temp$Population==Population))),label=Population2,cex.axis=6,las=2,tick=T)
-		  	#axis(3,at=xleft+mean(c(0,sum(temp$Population==Population))),label=ITER,cex.axis=6,las=2,col.axis=unique(temp$Color[temp$Population==Population]),tick=T)
-			  dimPrevRegion=dimPrevRegion+separPop
-		  }
-		  for(k in c(1:numberK)){
-			  ytop=ybottom+temp[ temp$Ind==ind,paste("V",k,sep="")]
-			  rect(xleft=xleft,xright=xleft+1,ybottom=ybottom,ytop=ytop,col=MyColors[k],border=NA)
-			  ybottom=ytop
-		  }
-		  xleft=xleft+1
-	  }
-	  xleft=xleft+separ
-	  atRegion[reg]<-mean(c(0,sum(temp$Region==reg)))+dimPrevRegion
-	  dimPrevRegion=atRegion[reg]+mean(c(0,sum(temp$Region==reg)))+separ
+	  		  #axis(3,at=xleft+mean(c(0,sum(temp$Population==Population))),label=Population,cex.axis=6,las=2,col.axis=unique(temp$Color[temp$Population==Population]),tick=T)
+			    Population2=Population
+			    axis(3,at=xleft+mean(c(0,sum(temp$Population==Population))),label=Population2,cex.axis=4,las=2,tick=T)
+		  	  #axis(3,at=xleft+mean(c(0,sum(temp$Population==Population))),label=ITER,cex.axis=6,las=2,col.axis=unique(temp$Color[temp$Population==Population]),tick=T)
+			    dimPrevRegion=dimPrevRegion+separPop
+		    }
+		    for(k in c(1:numberK)){
+			    ytop=ybottom+temp[ temp$Ind==ind,paste("V",k,sep="")]
+			    rect(xleft=xleft,xright=xleft+1,ybottom=ybottom,ytop=ytop,col=MyColors[k],border=NA)
+			    ybottom=ytop
+		    }
+		    xleft=xleft+1
+	    }
+	    xleft=xleft+separ
+	    atRegion[reg]<-mean(c(0,sum(temp$Region==reg)))+dimPrevRegion
+	    dimPrevRegion=atRegion[reg]+mean(c(0,sum(temp$Region==reg)))+separ
+    }
+    text(x=(numInds+separPop*(numPops-numRegions)+numRegions*(separ))*1.05,y=0.5,labels = plotname,cex=10)
+    
   }
-
   dev.off()
-  
   meanByPop=data.frame(matrix(NA,0,KNUM))
   names(meanByPop)=paste(c(1:KNUM),sep="")
   iterP=0
@@ -226,13 +222,3 @@ for(KNUM in listKNUM){
   write.table(out,paste(outfile,".AncestryComponentByIndividual.txt",sep=""),col.names=T,row.names=F,sep="\t",quote=F)
 }
 
-
-pdf(paste(pref,".CrossValidation.pdf",sep=""))
-a<-read.table(paste(pref,".CV",sep=""),stringsAsFactors = F,header=T)
-a<-a[ a$K >2,]
-plot(CVscore~K,data=a,type="l",main="Cross-Validation Score",axes=F)
-axis(2,at=seq(round(min(a$CVscore),digits = 4),round(max(a$CVscore),digits = 4),by = 2e-4))
-axis(1,at=a$K)
-points(CVscore~K,data=a,pch=4)
-points(a$K[ a$CVscore==min(a$CVscore)],a$CVscore[ a$CVscore==min(a$CVscore)],col="red",pch=1,cex=3,lwd=2)
-dev.off()
