@@ -31,10 +31,12 @@ Realizamos una seria de tests con el objetivo de evaluar las afinidades genétic
 
 - Primero, usaremos R para reemplazar los ID de las poblaciones en el archivo *.ind:
 Ejecutar R y realizar reemplazo de IDs de la siguiente forma:
-```d = read.table("prefix.ind")
+```
+d = read.table("prefix.ind")
 r = read.table("metadata_curso_jnab2023_fn.csv", header = T, sep =",")
 d$V3 = r$popID[match(d$V1, r$indivID)]
-sum(is.na(d$V3))```
+sum(is.na(d$V3))
+```
 
 Si el ouput del último comando (`sum`) es cero, continuar con
 `write.table(d, "prefix_popID.ind", col.names = F, row.names = F, quote = F)`
@@ -48,7 +50,9 @@ Si el ouput del último comando (`sum`) es cero, continuar con
   Argentina_NorthTierradelFuego_LaArcillosa2_5800BP
 
   - Generar lista de comparaciones:
-  `for i in `cat target.poplist`;do for j in `cat unique.poplist`;do echo $i $j Mbuti;done;done | awk '$1 != $2' > PatagoniaMH.X.Mbuti.txt`
+  ```
+for i in `cat target.poplist`;do for j in `cat unique.poplist`;do echo $i $j Mbuti;done;done | awk '$1 != $2' > PatagoniaMH.X.Mbuti.txt
+```
 
 - Tercero: correr qp3Pop usando sbatch (script `1_outgroupf3.sbatch`) y utilizando como `popfilename` el último archivo generado. En el archivo de parámetro, recuerda reemplazar el `indivname` por el archivo creado en R.
 
