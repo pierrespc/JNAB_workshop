@@ -9,7 +9,7 @@ En esta sesión, vamos a usar comandos básicos para:
 
 ### 1.1. Explorar los ficheros
 
-Vamos a ver a que se parecen los datos en el formato eigensoft.\
+Vamos a ver cómo están los datos en el formato eigensoft.\
 Vamos a trabajar con 3 conjuntos de datos:
 - Datos de genotipificación de individuos modernos ( de la Fuente et al. 2018 y Luisi et al. 2020). Estos datos fueron enmascarados por individuo para quedarse solo con las regiones genómicas de ancestria genética indígena (para cada individuo, los genotipos de las variantes en regiones con ancestría genética no indígena fueron asignados a Valor Faltante). Están ubicados en `StartingData/MaskedModernData/
 - Datos de secuenciación de individuos antiguos (de la Fuente et al. 2018, Nakatsuka et al. 2020, Raghavan et al. 2015), obtenidos desde el [Allen Ancient DNA Resource (AADR)](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/FFIDCW). Ubicados en `StartingData/AADR/`
@@ -33,18 +33,17 @@ Verificar que los números entre los archivos concuerden:
 
 Son consistentes estos números?
 
-Con `head <nombre del archivo> ` mirar las 10 primeras líeas del mapa, de los individuos y de la matriz de genotipos.
+Con `head <nombre del archivo> ` se puede mirar las 10 primeras líneas del mapa, de los individuos y de la matriz de genotipos.
 - Cuáles son los alelos de las 5 primeras variantes? (Se puede mostrar solamente las 5 primeras líneas con `head -5 <pref>.snp.txt`)
 - A qué poblaciones pertenecen los 3 primeros individuos? (se puede mostrar solamente las 3 primeras líneas con `head -3 <pref>.ind.txt`)
 - Cuál es el genotipo de lo 3 primeros individuos para las 5 primeras variantes? (se puede mostrar estos genotipos con `head -5 <pref>.geno.txt | awk -F "" '{print $1,$2,$3}' `
 
 ### 1.2. Obtener información sobre los 3 conjuntos de datos con los cuales queremos trabajar
 
-Mirar el script ` 0_init.sh `: permite crear carpetas que nos van a servir después.  
+Consultar el script ` 0_init.sh `: permite crear carpetas que nos van a servir después.  Correrlo con `./0_init.sh`
 
 Mirar el script: ` 1_getSomeNumbers.sh `. El bucle `for ` permite hacer las mismas acciones usando la variable `base` a la cúal se atribuye el prefijo de cada triplet de archivos que nos interesan. Estos números se escriben luego en archivo de salidas guardados en la carpeta `Outputs/`.
-
-Correr el script: ` ./1_getSomeNumbers.sh `, y mirar las salidas.
+Correr el script: ` ./1_getSomeNumbers.sh `, y consultar las salidas.
 - Cuántas variantes y cuantos individuos contienen cada conjunto de datos? Cuantos individuos?
 - Cuántos individuos por poblacioó?
 - Qué cromosomas están representados?
@@ -55,9 +54,10 @@ Correr el script: ` ./1_getSomeNumbers.sh `, y mirar las salidas.
 ### 2.1. Modern + AADR
 Ahora vamos a intentar fusionar los datos de individuos modernos y Antiguos con la [función mergeit de eigensoft](https://github.com/argriffing/eigensoft/blob/master/CONVERTF/README).
 
-Mirar el archivo `2_merge_AADR-Modern.sh`.
+Mirar el archivo `2_merge_AADR-Modern.sbatch`.
 El encabezado con SBATCH son las especificaciones para mandar a correr el script en un nodo de computaciónn:
 - vamos a usar la partición que se llama short (`#SBATCH -p short`)
+- vamos a usar prioridad que nos otorga el CCAD (`#SBATCH -reservation=cursojnab`)
 - lo  que normalmente se imprimiría en la plantalla si corremos el script directamente (es decir el stdout) se guardará en `/home/pluisi/JNAB/dia1/sesion3/Logs/merge.o`
 - los errores que normalmente se imprimirían en la plantalla si corremos el script directamente (es decir el stderr) se guardarán en `/home/pluisi/JNAB/dia1/sesion3/Logs/merge.e`
 - el job aparecerá cómo `merge` en la cola (`#SBATCH -J merge `)
@@ -78,16 +78,16 @@ Mirar el estatus de la cola con `squeue -u <user> ` (su user es `cursojnab<N>`).
 Funcionó? Mirar los Logs (`Logs/merge.e` y `Logs/merge.o`) y verificar si se generaron los archivos esperados en `Outputs/`
 
 Vemos que no le gusta que los alelos no sean consistentes entre los dos archivos. Eso se debe a que puede ser una posición tri-alelíca pero eigensoft (y plink) solo reconocen posiciones bi-alelíca.
-Pero además cuando trabajamos con datos de genotipificación, existe el problema de la cadena: un A leído en la cadena + corresponde a un T en la cadena -. Lo mismo para C/G. Llamamos los genotipos A/T y C/G "ambiguos". Cuando trabajamos con datos de secuenciación, en general todo se lee con la cadena + y no hay ambiguidad, pero con datos de genotipificación, es más complicado (depende de la posición y de la tecnología), entonces es recomendable sacar las posiciones con alelos A/T y C/G. Es lo que hace eigensoft.
+Pero además, cuando trabajamos con datos de genotipificación, existe el problema de la cadena: un A leído en la cadena + corresponde a un T en la cadena -. Lo mismo para C/G. Llamamos los genotipos A/T y C/G "ambiguos". Cuando trabajamos con datos de secuenciación, en general todo se lee con la cadena + y no hay ambiguidad, pero con datos de genotipificación, es más complicado (depende de la posición y de la tecnología), entonces es recomendable sacar las posiciones con alelos A/T y C/G. Es lo que hace eigensoft.
 
-Con `wc -l Outputs/ModernAncient.snp.txt ` se puede consultar cuantas posiciones quedaron.
+Con `wc -l Outputs/ModernAncient.snp.txt ` se puede consultar cuántas posiciones quedaron.
 Con ` awk '{print $5,$6}' Outputs/ModernAncient.snp.txt | sort | uniq ` se puede ver el conteo de las combinaciones Alelo1/Alelo2 de las variantes que quedan, y verificar que ya no hay genotipos ambiguos.
 Con ` wc -l  Outputs/ModernAncient.ind.txt `  podemos ver el número de individuos (corroborar que corresponde con los inputs).
 
 
 ### 2.2. Modern + AADR + Outgroups
-El script `3_merge_Outgoups.sh ` permite fusionar los datos que acabamos de generar con el archivo de "Outgroups".
-Mandarlo a correr con `sbatch 3_merge_Outgoups.sh `
+El script `3_merge_Outgoups.sbatch ` permite fusionar los datos que acabamos de generar con el archivo de "Outgroups".
+Mandarlo a correr con `sbatch 3_merge_Outgoups.sbatch `
 Es muy parecido al script previo. Mirarlo para tratar de entender los ficheros de entrada y de salida.
 
 Los archivos estan al formato "binary" de plink y se constituyen de 3 archivos
@@ -107,25 +107,27 @@ En la terminal hacer:
 Cuando trabajamos con datos enmascarados y datos de ADN antiguo, no podemos usar filtros estrictos sobre valores faltantes (por ejemplo en modernos sin enmascarar solemos sacar los individuos con más de 5% de genotipos faltantes y los snps con más de 2%). En nuestro caso, se trata de hacer un compromiso entre  trabajar con matrices de genotipos sin demasiados datos faltantes, pero al mismo tiempo poder analizar la mayor cantidad de individuos y variantes posibles. Vamos a explorar entonces las distribuciones de valores faltantes por individuo y por posición.
 Plink permite obtener estos datos directamente (ver [https://www.cog-genomics.org/plink/1.9/basic_stats#missing](https://www.cog-genomics.org/plink/1.9/basic_stats#missing)).
 
-Vamos a correr `sbatch 4_getMissingDataStats.sh  ` para generar:
+Vamos a correr `sbatch 4_getMissingDataStats.sbatch  ` para generar:
 - `Outputs/ModernAncient_withOutgroups.imiss`: valores faltantes por individuo
 - `Outputs/ModernAncient_withOutgroups.lmiss`: valores faltantes por snp
  
 Corroborar que haya funcionado bien (mirar los Logs y si existen los Outputs esperados). Verificar que el número de individuos es el esperado dados los ficheros de entrada. Cuántas variantes tiene el conjunto de datos generado?
 
-Ahora vamos a resumir esta información en R (script RScripts/distributionMissing.R). Mirar el script para ver que hace. Pedir ayuda para interpretar si necesario.
-Como tenemos que leer un archivo grande (Outputs/ModernAncient_withOutgroups.lmiss que tiene centenares de miles de lineas) y R es demandante tenemos que pdoemos pasar por un nodo de computacion y correr `sbatch 5_runRscriptForMissingDistributions.sh ` (mirarlo para entenderlo). Pero parece que trabajar directamente en el submit-node no es tan grave, entonces correr `Rscript RScripts/distributionMissing.R` para no pasar por la cola de submit.
-
+Ahora vamos a resumir esta información en R (script `RScripts/distributionMissing.R`). Mirar el script para ver que hace. Pedir ayuda para interpretar si necesario.
+Correr `Rscript RScripts/distributionMissing.R` para no pasar por la cola de submit. \ 
+Nota: esto es para ganar tiempo durante el curso pero normalmente, como este script lee un archivo grande (`Outputs/ModernAncient_withOutgroups.lmiss` que contiene centenares de miles de lineas), lo correcto es pasar por un nodo de computacion y correr `sbatch 5_runRscriptForMissingDistributions.sbatch `.
 Desafortunamente, no podemos ver el pdf directamente y hay que descargarlo en la computadora.
-Desde la terminal de la computadora (no estando conectado a mulatona), hacer `scp <user>@mulatona.ccad.unc.edu.ar:/home/<user>/JNAB/dia1/sesion3/Outputs/ModernAncient_withOutgroups_missing.pdf ~/ ' y abrir el pdf en su computadora.
+Desde la terminal de la computadora (no estando conectado a mulatona), hacer:\
+`scp <user>@mulatona.ccad.unc.edu.ar:/home/<user>/JNAB/dia1/sesion3/Outputs/ModernAncient_withOutgroups_missing.pdf ~/ ` y abrir el pdf en su computadora.
 
 Vemos que la tasa de valor faltante para los individuos modernos enmascarados es mucho más alta que para los antiguos. Y vemos que la distribución de la tasa de valores faltantes por variante es bi-modal. Esto suele pasar cuando las listas de variantes de los dos conjuntos de datos que queremos fusionar son distintas. Vamos a corroborar mirando la tasa de valores faltantes por snp en sub-conjuntos de individuos.
 En plink existe la opción [`--keep ` para filtrar individuos](https://www.cog-genomics.org/plink/1.9/filter#indiv). 
-Para usarla, hay que crear un archivo que contiene por los menos las columnas FamilyID | IndID. Este se puede generar facílmente con comandos de bash partiendo del fichero fam de partida (si conocemos bien los datos). Mirar en el script  `6_getMissingDataStats_perDataSet.sh` como se generan los dos archivos `ModernAncient_withOutgroups_onlyModernEnmascarados.KEEP` y `ModernAncient_withOutgroups_onlyAncient.KEEP` a través de la función `grep`.
-Correr `sbatch 6_getMissingDataStats_perDataSet.sh `. Miremos las distribuciones de los valores faltantes en cada sub-conjunto:
+Para usarla, hay que crear un archivo que contiene por los menos las columnas FamilyID | IndID. Este se puede generar facílmente con comandos de bash partiendo del fichero fam de partida (si conocemos bien los datos). Mirar en el script  `6_getMissingDataStats_perDataSet.sbatch` como se generan los dos archivos `ModernAncient_withOutgroups_onlyModernEnmascarados.KEEP` y `ModernAncient_withOutgroups_onlyAncient.KEEP` a través de la función `grep`.\
+Correr `sbatch 6_getMissingDataStats_perDataSet.ssbatch `. 
+Miremos las distribuciones de los valores faltantes en cada sub-conjunto:
 - Primero los datos modernos:` Rscript RScripts/distributionMissing_divided.R  Outputs/ModernAncient_withOutgroups_onlyModernEnmascarados`
 - Luego los datos antiguos:` Rscript RScripts/distributionMissing_divided.R  Outputs/ModernAncient_withOutgroups_onlyAncient`
-(Estos se pueden correr en un nodo de computacion cón `sbatch  7_runRscriptForMissingDistributions_divided.sh`) 
+(Estos se pueden correr en un nodo de computacion cón `sbatch  7_runRscriptForMissingDistributions_divided.sbacth`) \
 Copiar en la computadora estos archivos con comando scp:
 - `scp <user>@mulatona.ccad.unc.edu.ar:/home/<user>/JNAB/dia1/sesion3/Outputs/ModernAncient_withOutgroups_onlyModernEnmascarados_missing.pdf ~/` 
 - `scp <user>@mulatona.ccad.unc.edu.ar:/home/<user>/JNAB/dia1/sesion3/Outputs/ModernAncient_withOutgroups_onlyAncient_missing.pdf ~/`
@@ -153,7 +155,7 @@ Con `awk`, asignamos "Ignore" como población a todos los individuos modernos me
  
 Ya tenemos todos los archivos listos para la sesión 5! 
 
-Que comando podemos hacer para mirar la tasa de valores faltantes en los archivos plink `Outputs/ModernAncient_withOutgroups.MIND0.5.GENO0.2{.bed,bim.fam} usando plink?
+Qué comando podemos hacer para mirar la tasa de valores faltantes en los archivos plink `Outputs/ModernAncient_withOutgroups.MIND0.5.GENO0.2{.bed,bim.fam} usando plink?
  
 
 
