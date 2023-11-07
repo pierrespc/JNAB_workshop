@@ -28,24 +28,27 @@ Explorar archivos bam:
 
 Identifica o crea los archivos necesarios para genera el archivo mpileup de los 4 bam disponibles.
 - Generar archivo `*.pos` desde archivo `*.snp`:
-  `awk '{print $2, $4}' db1.snp > db1.pos`
+  `awk '{print $2, $4}' <prefix>.snp > <prefix>.pos`
 - Generar lista de archivos bam:
   `ls *bam > bamlist.txt`
 
+Correr `samtools mpileup` usando `sbatch`(script `1_mpileup.sbatch`)
+
 ## 2: pileupCaller
 
-`pileupCaller --randomHaploid --sampleNames sample1,sample2,sample3,sample4 -–samplePopName pop1,pop2,pop3,pop4 -f southamerica_masked_subset_ID_chr13.snp -e genomas_antiguos.pileUp < genomas_antiguos.mpileup`
+Ejemplo:
+`pileupCaller --randomHaploid --sampleNames sample1,sample2,sample3,sample4 -–samplePopName pop1,pop2,pop3,pop4 -f southamerica_masked_subset_ID.snp -e genomas_antiguos.pileUp < genomas_antiguos.mpileup`
 
-- `sampleNames` -> lista separada por `,` con el nombre de los individuos. Estos serán los nombres de individuos en el nuevo archivo eigenstrat *.ind. ¿A qué columna en el archivo *.ind corresponde?
+`sampleNames` es una lista separada por , con el nombre de los individuos. Estos serán los nombres de individuos en el nuevo archivo eigenstrat *.ind. ¿A qué columna en el archivo *.ind corresponde?
+`–samplePopName` -> similar  `sampleNames`, pero aplicado a poblaciones. ¿A qué columna en el archivo *.ind corresponde?
 
-- `–samplePopName` -> similar  `sampleNames`, pero aplicado a poblaciones. ¿A qué columna en el archivo *.ind corresponde?
+Correr `pileupCaller` usando el script `2_pileupCaller.sbatch`
 
 ¿Qué otras opciones de llamado de variantes se pueden realizar?
 
 ## 3: Unir nuevos datos a set de referencia
 
-Utiliza la herramienta mergeit aprendida en secciones anteriores para unir la base de datos de referencia y los nuevos genotipos pseudo-haploides. 
+Utiliza la herramienta mergeit aprendida en secciones anteriores para unir la base de datos de referencia y los nuevos genotipos pseudo-haploides.
 
 ## 4: Generar variantes para genomas completos
 En esta sección utilizaremos los archivos trabajados en la sesión 3 para hacer el llamado de variantes, esta vez utilizando archivos bam de genomas completos. Repetir los pasos 1 a 3 generando los archivos necesarios.
-
