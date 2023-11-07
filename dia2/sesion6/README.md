@@ -50,7 +50,8 @@ Si el ouput del último comando (`sum`) es cero, continuar con
   Argentina_NorthTierradelFuego_LaArcillosa2_5800BP
 
   - Generar lista de comparaciones:
-  ```
+  
+```
 for i in `cat target.poplist`;do for j in `cat unique.poplist`;do echo $i $j Mbuti;done;done | awk '$1 != $2' > PatagoniaMH.X.Mbuti.txt
 ```
 
