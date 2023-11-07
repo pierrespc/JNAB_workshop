@@ -9,18 +9,18 @@ En esta sesión, vamos a usar comandos básicos para:
 
 ### 1.1. Explorar los ficheros
 
-Vamos a ver a que se parecen los datos en el formato eigensoft.
+Vamos a ver a que se parecen los datos en el formato eigensoft.\
 Vamos a trabajar con 3 conjuntos de datos:
-- Datos de genotipificación de individuos modernos ( de la Fuente et al. 2018 y Luisi et al. 2020). Estos datos fueron enmascarados por individuo para quedarse solo con las regiones genómicas de ancestria genética indigena (para cada individuo, los genotipos de las variantes en regiones con ancestría genética no indígena fueron asignados a Valor Faltante). En `StartingData/MaskedModernData/
-- Datos de secuenciación de individuos antiguos (de la Fuente et al. 2018, Nakatsuka et al. 2020, Raghavan et al. 2015), obtenidos desde el [Allen Ancient DNA Resource (AADR)](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/FFIDCW). En `StartingData/AADR/`
-- Datos de secuenciación de individuos modernos de Francia (French), de Nigeria (Yoruba) y Congo (Mbuti). En `StartingData/Outgroups/`
+- Datos de genotipificación de individuos modernos ( de la Fuente et al. 2018 y Luisi et al. 2020). Estos datos fueron enmascarados por individuo para quedarse solo con las regiones genómicas de ancestria genética indígena (para cada individuo, los genotipos de las variantes en regiones con ancestría genética no indígena fueron asignados a Valor Faltante). Están ubicados en `StartingData/MaskedModernData/
+- Datos de secuenciación de individuos antiguos (de la Fuente et al. 2018, Nakatsuka et al. 2020, Raghavan et al. 2015), obtenidos desde el [Allen Ancient DNA Resource (AADR)](https://dataverse.harvard.edu/dataset.xhtml?persistentId=doi:10.7910/DVN/FFIDCW). Ubicados en `StartingData/AADR/`
+- Datos de secuenciación de individuos modernos de Francia (French), de Nigeria (Yoruba) y Congo (Mbuti). Ubicados en `StartingData/Outgroups/`
 
 Los datos de genotipos en el formato eigensoft se conforman de 3 archivos (ver : [https://github.com/argriffing/eigensoft/blob/master/CONVERTF/README](https://github.com/argriffing/eigensoft/blob/master/CONVERTF/README)) 
 - `<pref>.snp.txt`: el mapa de las variantes con 6 columnas: snpID | chr | position (in cM) | position (in bp) | Alelo1 | Alelo2
 - `<pref>.ind.txt`: información de los individuos con 3 columnas indID | Sex | Population
 - `<pref>.geno.txt`: la matriz de genotipos (1 línea por individuo, una columna por variante; los individuos y las variantes están en el mismo orden que en los archivos  `.ind.txt` y el `.snp.txt`). El genotipo está codificado con el número de copias del Alelo1 (0/1/2 y 9 para valor faltante).
 
-En la terminal: Ubicarse en ${HOME}/JNAB/dia1/sesion3/: ` cd ${HOME}/JNAB/dia1/sesion3/ `
+En la terminal: ubicarse en ${HOME}/JNAB/dia1/sesion3/: ` cd ${HOME}/JNAB/dia1/sesion3/ `
 
 Los datos están en la carpeta `StartingData`.
 Buscar con `ls` los nombres de los archivos para AADR (ADN antiguo).
