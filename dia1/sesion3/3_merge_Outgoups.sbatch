@@ -3,6 +3,7 @@
 #SBATCH -o Logs/mergeOutgroups.o
 #SBATCH -e Logs/mergeOutgroups.e
 #SBATCH -J mergeOutgroups
+#SBATCH --reservation=cursojnab
 
 shopt -s expand_aliases
 source ~/.bash_profile

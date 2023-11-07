@@ -3,6 +3,7 @@
 #SBATCH -o Logs/missingDivided.o
 #SBATCH -e Logs/missingDivided.e
 #SBATCH -J missingDivided
+#SBATCH --reservation=cursojnab
 
 shopt -s expand_aliases
 source ~/.bash_profile

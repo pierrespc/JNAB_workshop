@@ -3,6 +3,7 @@
 #SBATCH -o Logs/plotMissing.o
 #SBATCH -e Logs/plotMissing.e
 #SBATCH -J plotMissing
+#SBATCH --reservation=cursojnab
 
 shopt -s expand_aliases
 source ~/.bash_profile

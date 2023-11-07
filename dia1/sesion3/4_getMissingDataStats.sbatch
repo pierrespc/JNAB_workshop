@@ -3,6 +3,7 @@
 #SBATCH -o Logs/missing.o
 #SBATCH -e Logs/missing.e
 #SBATCH -J missing
+#SBATCH --reservation=cursojnab
 
 shopt -s expand_aliases
 source ~/.bash_profile

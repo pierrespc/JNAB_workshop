@@ -3,6 +3,7 @@
 #SBATCH -o Logs/merge.o
 #SBATCH -e Logs/merge.e
 #SBATCH -J merge
+#SBATCH --reservation=cursojnab
 
 shopt -s expand_aliases
 source ~/.bash_profile

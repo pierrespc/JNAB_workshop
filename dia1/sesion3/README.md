@@ -71,7 +71,7 @@ source ~/.bash_profile ` son algunos trucos para poder correr los programas (es 
 - `echo ... ` es para generar el archivo `Outputs/ModernAncient.params `
 - `mergit -p ... ` es para correr mergeit con este fichero de parámetros.
 
-Mandar a correr el job con `sbatch 2_merge_AADR-Modern.sh`.
+Mandar a correr el job con `sbatch 2_merge_AADR-Modern.sbatch`.
 
 Mirar el estatus de la cola con `squeue -u <user> ` (su user es `cursojnab<N>`). Cuando no aparece más es que se acabo la corrida.
 
@@ -127,7 +127,7 @@ Correr `sbatch 6_getMissingDataStats_perDataSet.ssbatch `.
 Miremos las distribuciones de los valores faltantes en cada sub-conjunto:
 - Primero los datos modernos:` Rscript RScripts/distributionMissing_divided.R  Outputs/ModernAncient_withOutgroups_onlyModernEnmascarados`
 - Luego los datos antiguos:` Rscript RScripts/distributionMissing_divided.R  Outputs/ModernAncient_withOutgroups_onlyAncient`
-(Estos se pueden correr en un nodo de computacion cón `sbatch  7_runRscriptForMissingDistributions_divided.sbacth`) \
+(Estos se pueden correr en un nodo de computacion cón `sbatch  7_runRscriptForMissingDistributions_divided.sbatch`) \
 Copiar en la computadora estos archivos con comando scp:
 - `scp <user>@mulatona.ccad.unc.edu.ar:/home/<user>/JNAB/dia1/sesion3/Outputs/ModernAncient_withOutgroups_onlyModernEnmascarados_missing.pdf ~/` 
 - `scp <user>@mulatona.ccad.unc.edu.ar:/home/<user>/JNAB/dia1/sesion3/Outputs/ModernAncient_withOutgroups_onlyAncient_missing.pdf ~/`
@@ -139,7 +139,7 @@ Tenemos 47+141+56=244 individuos. 141 son de los datos enmascarados. Si sacamos 
 - Luego filtraremos los individuos con una tasa de valores faltantes superior a 0.3 (con [`--mind`](https://www.cog-genomics.org/plink/1.9/filter#missing)).
 - Luego filtraremos por Minor Allele Frequency (MAF) con un umbral de 0.01 (con [`--maf `](https://www.cog-genomics.org/plink/1.9/filter#maf)).
 - Y finalmente guardaremos solo los [tag-snps](https://www.cancer.gov/espanol/publicaciones/diccionarios/diccionario-genetica/def/tagsnp) para tener variantes independientes (necesario para admixture que usaremos durante la sesión 5). Los tag-snps se identifican con una aproximación de ventanilla corredera de 50 snps, con un offset de 5, with r2>0.5 usando el parametro `--indep-pairwise 50 5 0.5`. Plink genera un archivo `.prune.in` con los tag-snps, que podemos luego leer en plink con la funcion `--extract`.
-Todos estos pasos están incorporados en `8_filter.sh`. Correr `sbatch 8_filter.sh`.
+Todos estos pasos están incorporados en `8_filter.sh`. Correr `sbatch 8_filter.sbatch`.
 
 Miremos los individuos que se sacaron por el primero filtro (`--mind`) con:
 `more Outputs/ModernAncient_withOutgroups.MIND0.5.irem `.

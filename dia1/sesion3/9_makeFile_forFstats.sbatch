@@ -3,6 +3,7 @@
 #SBATCH -o Logs/makeFile_forFstats.o
 #SBATCH -e Logs/makeFile_forFstats.e
 #SBATCH -J forFstat
+#SBATCH --reservation=cursojnab
 
 shopt -s expand_aliases
 source ~/.bash_profile

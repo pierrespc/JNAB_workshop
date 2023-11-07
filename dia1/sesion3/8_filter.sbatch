@@ -3,6 +3,7 @@
 #SBATCH -o Logs/filter.o
 #SBATCH -e Logs/filter.e
 #SBATCH -J filter
+#SBATCH --reservation=cursojnab
 
 shopt -s expand_aliases
 source ~/.bash_profile
