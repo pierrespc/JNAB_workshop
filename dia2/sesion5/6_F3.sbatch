@@ -3,6 +3,7 @@
 #SBATCH -o Logs/F3.o
 #SBATCH -e Logs/F3.e
 #SBATCH -J F3
+#SBATCH --reservation=cursojnab
 
 shopt -s expand_aliases
 source ~/.bash_profile

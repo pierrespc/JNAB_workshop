@@ -3,7 +3,7 @@
 #SBATCH -o Logs/PCA.o
 #SBATCH -e Logs/PCA.e
 #SBATCH -J PCA
-
+#SBATCH --reservation=cursojnab
 shopt -s expand_aliases
 source ~/.bash_profile
 

@@ -21,7 +21,7 @@ El comando es simple: se llama smartpca con un archivo de parametro (opcion  -p)
 Se calcula el ACP con los datos modernos (opción poplistname) y se proyectan los datos antiguos. Esto se debe a (se suele hacer con ADN antiguo). Para eso tenemos que generar un archivo lista de las poblaciones modernas. Para evitar que se agrupen los individuos proyectados, vamos a usar la opción [lsqproject](https://github.com/DReichLab/EIG/blob/master/POPGEN/lsqproject.pdf) que permite tomar mejor en cuanta este problema al momento de proyectar sobre los Componentes prinpales.
 `smartpca` permite sacar individuos outliers. No lo vamos a usar (para desabilitarlo ponemos 0 al parametro `numoutlieriter`).
 
-Correr `sbatch 1_PCA.sh` y verificar que se generaron bien los ficheros en `Outputs/PCA`
+Correr `sbatch 1_PCA.ssbatch` y verificar que se generaron bien los ficheros en `Outputs/PCA`
 - ficheros de los eigen vectors (`.evec`): una linea un individuo y una columna su posicion en un COmponente Principal (1a y ultima columna son datos de anotacion del individuo)
 - ficheros de los eigen value (`.eval`): Varianza explica por el componente)
 
@@ -73,8 +73,8 @@ El Z es un truco estadistico muy usado que permite inferir si un F es significat
 ## F3-Outgroup
 Usando el F de la forma F(Ind1,Ind2;Mbuti), Mbuti siendo el outgroup podemos inferir las similitudes entre pares de individuos. Usando despues 1-F3, tenemos una distancia genetica entre individuos. \
 Vamos primero calcular los F3 usando la funcion `qp3Pop`. Pero tenemos que definir como entidad de analisis el individuo: hay que cambiar el archivo .ind.txt para atribuir como poblacion el ID del individuo (guardamos Mbuti como poblacion). Luego hay que guardar la lista de las comparaciones que queremos hacer en un archivo con 3 columnas Ind1 | Ind2 | Outgroup. Hay que generar un archivo de parametros donde se estipula los archivos de entrada, el archivo de lista de comparaciones y unas opciones. Y se lanza los calculos con `qp3Pop -p <paramfile>`. Los resultados se imprimen normalmente en plantala, por eso hay que redireccionar la salida al archivo deseado.\
-El script `6_F3.sh ` hace todo eso... ademas de un paso para poner la salida de `qp3Pop` en limpio para ser leida facilmente con R despues. \
-Correr `sbatch 6_F3.sh`. Mientras corre, tratar de obtener el numero de combinaciones para cuales se van a calcular el F3.
+El script `6_F3.sbatch ` hace todo eso... ademas de un paso para poner la salida de `qp3Pop` en limpio para ser leida facilmente con R despues. \
+Correr `sbatch 6_F3.sbatch`. Mientras corre, tratar de obtener el numero de combinaciones para cuales se van a calcular el F3.
 Generar un plot de Multidimensional Scaling a partir de las distancias geneticas estimadas con el F3-outgroup con `Rscript 7_plotMDS_F3.R`. Descargar en su computadora el pdf generad:
 `scp <user>@mulatona.ccad.unc.edu.ar:/home/<user>/JNAB/dia2/sesion5/Output/F3/F3_BtwInds.Cleaned.pdf . `. 
 - Que conclusiones podemos sacar del plot Dimension2 vs Dimension2? Del Dimension4 vs Dimension5? Y de Dimension6 vs Dimension5?
