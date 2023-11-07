@@ -12,7 +12,7 @@ Partiremos evaluando datos de secuenciación NGS de individuos antiguos.
 
 En el fichero `/home/shared/cursojnab/dia1/sesion2` encontrarán:
 - Archivos fastq: `/home/shared/cursojnab/dia1/sesion2/fastq/<prefix>.fq.gz`
-- Scripts a utilizar en la sesión:
+- Scripts a utilizar en la sesión (`/home/shared/cursojnab/dia1/sesion2/scripts/`):
   - `1_fastqc.sbatch`
   - `2_AdapterRemoval.sbatch`
   - `3_mapping.sbatch` y `3_mapping.sh`
