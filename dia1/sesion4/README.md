@@ -36,8 +36,9 @@ Identifica o crea los archivos necesarios para genera el archivo mpileup de los 
 
 `pileupCaller --randomHaploid --sampleNames sample1,sample2,sample3,sample4 -–samplePopName pop1,pop2,pop3,pop4 -f southamerica_masked_subset_ID_chr13.snp -e patagonia.pileUp < patagonia.mpileup`
 
-`sampleNames` es una lista separada por , con el nombre de los individuos. Estos serán los nombres de individuos en el nuevo archivo eigenstrat *.ind. ¿A qué columna en el archivo *.ind corresponde?
-`–samplePopName` -> similar  `sampleNames`, pero aplicado a poblaciones. ¿A qué columna en el archivo *.ind corresponde?
+- `sampleNames` -> lista separada por `,` con el nombre de los individuos. Estos serán los nombres de individuos en el nuevo archivo eigenstrat *.ind. ¿A qué columna en el archivo *.ind corresponde?
+
+- `–samplePopName` -> similar  `sampleNames`, pero aplicado a poblaciones. ¿A qué columna en el archivo *.ind corresponde?
 
 ¿Qué otras opciones de llamado de variantes se pueden realizar?
 
