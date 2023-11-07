@@ -34,7 +34,7 @@ Identifica o crea los archivos necesarios para genera el archivo mpileup de los 
 
 ## 2: pileupCaller
 
-`pileupCaller --randomHaploid --sampleNames sample1,sample2,sample3,sample4 -–samplePopName pop1,pop2,pop3,pop4 -f southamerica_masked_subset_ID_chr13.snp -e patagonia.pileUp < patagonia.mpileup`
+`pileupCaller --randomHaploid --sampleNames sample1,sample2,sample3,sample4 -–samplePopName pop1,pop2,pop3,pop4 -f southamerica_masked_subset_ID_chr13.snp -e genomas_antiguos.pileUp < genomas_antiguos.mpileup`
 
 - `sampleNames` -> lista separada por `,` con el nombre de los individuos. Estos serán los nombres de individuos en el nuevo archivo eigenstrat *.ind. ¿A qué columna en el archivo *.ind corresponde?
 
