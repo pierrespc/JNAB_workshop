@@ -14,11 +14,11 @@ Trabajaremos con los archivos generados en sesiones anteriores. En particular, n
 Para estimar el outgroup-f3 utilizaremos el módulo qp3pop de ADMIXTOOLS (https://github.com/DReichLab/AdmixTools/blob/master/README.3PopTest
 ). Los parámetros del análisis son especificados en un archivo de texto que debe tener, al menos, las siguientes líneas:
 
-`genotypename:   prefix.geno
+```genotypename:   prefix.geno
 snpname:   prefix.snp
 indivname:   prefix.ind
 popfilename:  example.txt
-inbreed: NO`
+inbreed: NO```
 
 El archivo especificado en popfilename debe tener 3 poblaciones por línea, siendo la tercera posición ocupada por el outgroup. Por ejemplo: `popA popB Mbuti`. Este archivo puede tener tantas líneas como tests a evaluar.
 
@@ -29,10 +29,10 @@ Realizamos una seria de tests con el objetivo de evaluar las afinidades genétic
 
 - Primero, usaremos R para reemplazar los ID de las poblaciones en el archivo *.ind:
 Ejecutar R y realizar reemplazo de IDs de la siguiente forma:
-`d = read.table("prefix.ind")`
-`r = read.table("metadata_curso_jnab2023_fn.csv", header = T, sep =",")`
-`d$V3 = r$popID[match(d$V1, r$indivID)]`
-`sum(is.na(d$V3))`
+```d = read.table("prefix.ind")
+r = read.table("metadata_curso_jnab2023_fn.csv", header = T, sep =",")
+d$V3 = r$popID[match(d$V1, r$indivID)]
+sum(is.na(d$V3))```
 
 Si el ouput del último comando (`sum`) es cero, continuar con
 `write.table(d, "prefix_popID.ind", col.names = F, row.names = F, quote = F)`
