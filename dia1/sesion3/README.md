@@ -58,8 +58,8 @@ Mirar el archivo `2_merge_AADR-Modern.sbatch`.
 El encabezado con SBATCH son las especificaciones para mandar a correr el script en un nodo de computaciónn:
 - vamos a usar la partición que se llama short (`#SBATCH -p short`)
 - vamos a usar prioridad que nos otorga el CCAD (`#SBATCH -reservation=cursojnab`)
-- lo  que normalmente se imprimiría en la plantalla si corremos el script directamente (es decir el stdout) se guardará en `/home/pluisi/JNAB/dia1/sesion3/Logs/merge.o`
-- los errores que normalmente se imprimirían en la plantalla si corremos el script directamente (es decir el stderr) se guardarán en `/home/pluisi/JNAB/dia1/sesion3/Logs/merge.e`
+- lo  que normalmente se imprimiría en la plantalla si corremos el script directamente (es decir el stdout) se guardará en `Logs/merge.o`
+- los errores que normalmente se imprimirían en la plantalla si corremos el script directamente (es decir el stderr) se guardarán en `Logs/merge.e`
 - el job aparecerá cómo `merge` en la cola (`#SBATCH -J merge `)
 Luego vienen las instrucciones: 
 - las líneas `shopt -s expand_aliases
