@@ -10,7 +10,7 @@ A continuación realizaremos algunas demostraciones interactivas del uso de la t
 
 Las herramientas y conceptos básicos con los que les recomendamos familiarizarse son:
 
-- rutas realtivas y absolutas
+- rutas relativas y absolutas
 
 - man, pwd, ls, touch, mkdir, rm, cp, mv
 
@@ -22,6 +22,6 @@ Las herramientas y conceptos básicos con los que les recomendamos familiarizars
 
 ### Ejercicios
 
-Intente realizar los 2 ejercicios planteados. Luego revise [este archivo](./ejercicios/GREP_AWK_SED_FOR_IF.sh) que posee diferentes estructuras básicas, intente ejecutar los diferentes comandos o bucles presentes allí e interprete su funcionamiento.
+Intente realizar los 2 ejercicios planteados en el directorio [basicBASH](./basicBASH). Luego revise [este archivo](./ejercicios/GREP_AWK_SED_FOR_IF.sh) que posee diferentes estructuras básicas, intente ejecutar los diferentes comandos o bucles presentes allí e interprete su funcionamiento.
 
 ## 2. Introducción a R
