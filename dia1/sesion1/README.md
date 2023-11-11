@@ -6,5 +6,22 @@ En esta sesión repasaremos algunos conceptos relacionados a la conexión y trab
 
 ## 1. Introducción a BASH
 
+A continuación realizaremos algunas demostraciones interactivas del uso de la terminal. Se recomienda previamente haber consultado el repositorio [intro_bash](https://github.com/pastornicolas/intro_bash).
+
+Las herramientas y conceptos básicos con los que les recomendamos familiarizarse son:
+
+- rutas realtivas y absolutas
+
+- man, pwd, ls, touch, mkdir, rm, cp, mv
+
+- cat, head, tail, more, less
+
+- nano, scripts, permisos, variables
+
+- grep, sed, awk, bucles for
+
+### Ejercicios
+
+Intente realizar los 2 ejercicios planteados. Luego revise [este archivo](./ejercicios/GREP_AWK_SED_FOR_IF.sh) que posee diferentes estructuras básicas, intente ejecutar los diferentes comandos o bucles presentes allí e interprete su funcionamiento.
 
 ## 2. Introducción a R
