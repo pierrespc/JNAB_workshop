@@ -2,7 +2,7 @@
 
 En esta sesión repasaremos algunos conceptos relacionados a la conexión y trabajo remoto en un cluster de cómputo. Posteriormente, haremos una introducción práctica a BASH y R.
 
-- Ir a la presentación: [Intro_cluster](./intro_cluster.pdf)
+- Ir a la presentación: [Intro_cluster](./intro_clusters.pdf)
 
 ## 1. Introducción a BASH
 
